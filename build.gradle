@@ -1,0 +1,121 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+war {
+    baseName = 'KadetTODO'
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+
+    mavenLocal()
+
+    maven {
+        url "http://maven.springframework.org/release"
+    }
+
+    maven {
+        url "http://maven.springframework.org/snapshot"
+    }
+
+    maven {
+        url "http://maven.springframework.org/milestone"
+    }
+
+    maven {
+        url "https://repository.jboss.org/nexus/content/repositories/releases"
+    }
+
+}
+
+
+ext {
+    springVersion = "3.2.1.RELEASE"
+    springSecurityVersion = "3.1.0.RELEASE"
+    springDataVersion = "1.1.0.RELEASE"
+
+    mysqlConnectorVersion = "5.1.21"
+
+    hibernateVersion = "4.1.6.Final"
+    c3p0Version = "0.9.1.2"
+
+    querydslVersion = "2.7.0"
+    slf4jVersion = "1.6.1"
+    log4jVersion = "1.2.14"
+
+    cglibVersion = "2.2.2"
+    aspectjVersion = "1.6.12"
+
+    servletApiVersion = "2.5"
+    jstlVersion = "1.1.2"
+
+    jacksonVersion = "1.9.3"
+
+    junitVersion = "4.11"
+    mockitoVersion = "1.8.5"
+}
+
+
+dependencies {
+
+    // JUnit
+    testCompile "junit:junit:$junitVersion"
+    testCompile "org.mockito:mockito-all:$mockitoVersion"
+    testCompile "org.springframework:spring-test:$springVersion"
+
+    // Spring
+    compile "org.springframework:spring-core:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
+    compile "org.springframework:spring-tx:$springVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "org.springframework:spring-oxm:$springVersion"
+    compile "org.springframework:spring-aspects:$springVersion"
+
+    compile "org.springframework:spring-framework-bom:3.2.11.RELEASE"
+
+    compile "org.aspectj:aspectjrt:$aspectjVersion"
+    compile "org.aspectj:aspectjweaver:$aspectjVersion"
+
+    compile "cglib:cglib-nodep:$cglibVersion"
+
+    compile "javax.servlet:jstl:$jstlVersion"
+    compile "taglibs:standard:$jstlVersion"
+
+    // JSON
+    compile "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
+    compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
+
+    compile "log4j:log4j:$log4jVersion"
+
+    compile "org.slf4j:slf4j-api:$slf4jVersion"
+    compile "org.slf4j:slf4j-log4j12:$slf4jVersion"
+    compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+
+    compile "org.springframework.security:spring-security-core:$springSecurityVersion"
+    compile "org.springframework.security:spring-security-web:$springSecurityVersion"
+    compile "org.springframework.security:spring-security-config:$springSecurityVersion"
+    compile "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
+
+    compile "org.springframework.data:spring-data-jpa:$springDataVersion"
+    compile "org.springframework:spring-orm:$springVersion"
+
+    compile "c3p0:c3p0:$c3p0Version"
+    compile "mysql:mysql-connector-java:$mysqlConnectorVersion"
+
+    compile "org.hibernate:hibernate-core:$hibernateVersion"
+    compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+    compile "org.hibernate:hibernate-ehcache:$hibernateVersion"
+
+    compile "com.mysema.querydsl:querydsl-apt:$querydslVersion"
+    compile "com.mysema.querydsl:querydsl-jpa:$querydslVersion"
+
+    providedCompile "javax.servlet:servlet-api:$servletApiVersion"
+
+}
+
