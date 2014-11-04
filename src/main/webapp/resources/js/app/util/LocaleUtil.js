@@ -52,7 +52,9 @@ Ext.define('kadetTODO.util.LocaleUtil', {
 
                 String.prototype.translate = translate;
 
-                callback();
+                if (callback) {
+                    callback();
+                }
 
             }
         });

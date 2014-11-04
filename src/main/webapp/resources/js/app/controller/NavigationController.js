@@ -5,9 +5,9 @@ Ext.define('kadetTODO.controller.NavigationController', {
 
     extend: 'Ext.app.Controller',
 
-    stores: ['NavigationTreeStore'],
+    stores: ['NavigationTreeStore', 'ProjectStore'],
     models: [],
-    views: ['NavigationPanel', 'TabPanel'],
+    views: ['NavigationPanel', 'TabPanel', 'panel.ProjectsPanel'],
     refs: [
         {
             ref: 'navigationPanel',
@@ -73,18 +73,29 @@ Ext.define('kadetTODO.controller.NavigationController', {
 
         var newTabTitle = record.get('text');
 
-        var hasSuchName = false;
-
         var tab = tabPanel.items.find(function (item) {
             return item.title === newTabTitle;
         });
         if (!tab) {
 
             if (newTabTitle == 'Projects') {
+                var newTabPanel = Ext.create('Ext.panel.Panel', {
+                    xtype: 'gridPanel',
+                    title: record.get('text'),
+                    items : [{
+                        xtype: 'projectsPanel'
+                    }],
+                    closable: true
+                });
+                tabPanel.add(newTabPanel);
+                tabPanel.setActiveTab(newTabPanel);
+            }
+
+            /*if (newTabTitle == 'Projects') {
                 this.redirectTo('projects');
             } else {
                 this.redirectTo('myPage');
-            }
+            }*/
 
             /*Ext.each(tabPanel.getTabBar().items, function (item) {
              console.log(item);
@@ -93,12 +104,8 @@ Ext.define('kadetTODO.controller.NavigationController', {
              }
              });*/
 
-            var newTabPanel = Ext.create('Ext.panel.Panel', {
-                xtype: 'gridPanel',
-                title: record.get('text'),
-                html: '',
-                closable: true
-            });
+
+/*
 
             Ext.getBody().mask();
 
@@ -118,6 +125,7 @@ Ext.define('kadetTODO.controller.NavigationController', {
                 }
 
             });
+*/
 
         }
 

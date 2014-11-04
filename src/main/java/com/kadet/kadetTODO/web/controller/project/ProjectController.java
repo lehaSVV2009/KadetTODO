@@ -38,7 +38,7 @@ public class ProjectController {
             return extJS.mapOK(projectUIs);
         } catch (Exception e) {
             logger.error(e);
-            return extJS.mapError(Strings.PROJECTS_RETEIEVE_ERROR);
+            return extJS.mapError(Strings.PROJECTS_RETRIEVE_ERROR);
         }
     }
 

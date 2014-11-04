@@ -14,7 +14,7 @@ public class Strings {
     /**
      * Errors
      */
-    public static final String PROJECTS_RETEIEVE_ERROR = "Error retrieving Projects from database.";
+    public static final String PROJECTS_RETRIEVE_ERROR = "Error retrieving Projects from database.";
     public static final String PROJECT_RETRIEVE_ERROR = "Error retrieving Project from database.";
 
 }

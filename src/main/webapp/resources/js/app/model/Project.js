@@ -12,7 +12,6 @@ Ext.define('kadetTODO.model.Project', {
         },
         'name',
         'description'
-
     ]
 
 });
