@@ -4,16 +4,16 @@
 Ext.define('kadetTODO.view.NavigationPanel', {
     extend: 'Ext.tree.Panel',
     alias: 'widget.todoNavigationPanel',
-    title: 'Navigation',
+    title: "NAVIGATION_PANEL_TITLE".translate(),
     rootVisible: false,
-    store: 'Projects',
+    store: 'NavigationTreeStore',
 
     dockedItems: [{
         xtype: 'toolbar',
         items: [{
-            text: 'Expand All'
+            text: "NAVIGATION_PANEL_EXPAND_ALL_BUTTON_TEXT".translate()
         }, {
-            text: 'Collapse All'
+            text: "NAVIGATION_PANEL_COLLAPSE_ALL_BUTTON_TEXT".translate()
         }]
     }]
 

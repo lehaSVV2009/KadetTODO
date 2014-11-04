@@ -5,7 +5,7 @@ Ext.define('kadetTODO.view.common.Footer', {
 
     extend: "Ext.panel.Panel",
 
-    html: "<h2><i>" + kadetTODO.util.Strings.FOOTER_TEXT + "</i></h2>",
+    html: "<h2><i>" + "FOOTER_TEXT".translate() + "</i></h2>",
     alias: 'widget.commonFooter'
 
 });

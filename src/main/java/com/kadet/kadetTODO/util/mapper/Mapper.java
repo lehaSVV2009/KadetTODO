@@ -5,7 +5,7 @@ package com.kadet.kadetTODO.util.mapper;
  */
 public interface Mapper<U, E> {
 
-    U toUI (E entity);
+    U toUIEntity (E entity);
     E toPersistenceEntity (U ui);
 
 }

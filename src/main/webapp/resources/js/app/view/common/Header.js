@@ -21,20 +21,20 @@ Ext.define('kadetTODO.view.common.Header', {
                     }
                 },
                 {
-                    text: kadetTODO.util.Strings.HOME_BUTTON_TEXT,
+                    text: "HEADER_HOME_BUTTON_TEXT".translate(),
                     handler: function () {
                         window.location = "/home"
                     }
                 },
                 {
-                    text: kadetTODO.util.Strings.NEW_TASK_BUTTON_TEXT,
+                    text: "HEADER_NEW_TASK_BUTTON_TEXT".translate(),
                     handler: function () {
 
                     }
                 },
                 '->',
                 {
-                    text: kadetTODO.util.Strings.LOGOUT_BUTTON_TEXT,
+                    text: "HEADER_LOGOUT_BUTTON_TEXT".translate(),
                     handler: function () {
                         window.location = "/logout";
                     }

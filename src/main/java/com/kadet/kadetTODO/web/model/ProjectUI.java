@@ -1,11 +1,14 @@
 package com.kadet.kadetTODO.web.model;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import java.math.BigInteger;
 import java.util.Date;
 
 /**
  * Created by AlexSoroka on 11/3/2014.
  */
+@JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.ANY)
 public class ProjectUI {
 
     private BigInteger id;

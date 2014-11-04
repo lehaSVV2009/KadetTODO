@@ -1,21 +1,27 @@
 /**
  * Created by AlexSoroka on 10/30/2014.
  */
-Ext.application({
+Ext.Loader.setPath('kadetTODO', 'resources/js/app');
 
-    name: 'kadetTODO',
-    appFolder: 'resources/js/app',
+Ext.require('kadetTODO.util.LocaleUtil', function () {
 
-    requires : [
-        'kadetTODO.util.Strings'
-    ],
+    Ext.create('kadetTODO.util.LocaleUtil').setLanguage(function () {
 
-    controllers: [
-        'ProjectsController'
-    ],
+        Ext.application({
 
-    launch: function () {
-        Ext.create('kadetTODO.view.MainViewport');
-    }
+            name: 'kadetTODO',
+            appFolder: 'resources/js/app',
+
+            controllers: [
+                'NavigationController'
+            ],
+
+            launch: function () {
+                Ext.create('kadetTODO.view.MainViewport');
+            }
+
+        });
+
+    })
 
 });

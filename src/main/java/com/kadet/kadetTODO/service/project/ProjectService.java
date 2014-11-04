@@ -35,7 +35,7 @@ public class ProjectService {
     }
 
     public ProjectUI findByName (String name) {
-        return mapper.toUI(projectRepository.findByName(name));
+        return mapper.toUIEntity(projectRepository.findByName(name));
     }
 
 }

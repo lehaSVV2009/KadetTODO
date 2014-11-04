@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class ProjectMapper implements Mapper<ProjectUI, Project>{
 
-    public ProjectUI toUI (Project project) {
+    public ProjectUI toUIEntity (Project project) {
         ProjectUI projectUI = null;
         if (project != null) {
             projectUI = new ProjectUI();
@@ -39,7 +39,7 @@ public class ProjectMapper implements Mapper<ProjectUI, Project>{
     public List<ProjectUI> toUI (List<Project> projects) {
         List<ProjectUI> projectUIs = new ArrayList<ProjectUI>();
         for (Project project : projects) {
-            projectUIs.add(toUI(project));
+            projectUIs.add(toUIEntity(project));
         }
         return projectUIs;
     }

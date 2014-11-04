@@ -4,7 +4,7 @@
 Ext.define('kadetTODO.view.TabPanel', {
     extend: 'Ext.tab.Panel',
     alias: 'widget.todoTabPanel',
-    title: 'View',
+    title: "TAB_PANEL_TITLE".translate(),
     items: [
         {
             closable: true,
