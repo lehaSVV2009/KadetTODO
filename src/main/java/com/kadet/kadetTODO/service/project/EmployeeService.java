@@ -1,11 +1,12 @@
 package com.kadet.kadetTODO.service.project;
 
 import com.kadet.kadetTODO.persistence.entity.project.Project;
-import com.kadet.kadetTODO.persistence.entity.project.QProject;
-import com.kadet.kadetTODO.persistence.repo.ProjectRepository;
+import com.kadet.kadetTODO.persistence.entity.user.QUser;
+import com.kadet.kadetTODO.persistence.entity.user.User;
+import com.kadet.kadetTODO.persistence.repo.UserRepository;
 import com.kadet.kadetTODO.util.extjs.FilterRequest;
-import com.kadet.kadetTODO.util.mapper.ProjectMapper;
-import com.kadet.kadetTODO.web.model.ProjectUI;
+import com.kadet.kadetTODO.util.mapper.UserMapper;
+import com.kadet.kadetTODO.web.model.EmployeeUI;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.BooleanExpression;
 import org.apache.log4j.Logger;
@@ -21,34 +22,34 @@ import java.util.List;
  */
 
 @Service
-public class ProjectService {
+public class EmployeeService {
 
     @Autowired
-    private ProjectRepository projectRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private ProjectMapper mapper;
+    private UserMapper mapper;
 
-    private Logger logger = Logger.getLogger(ProjectService.class);
+    private Logger logger = Logger.getLogger(EmployeeService.class);
 
-    public ProjectService () {
+    public EmployeeService () {
         super();
     }
 
 
-    public List<ProjectUI> findAll () {
-        return mapper.toUIEntity(projectRepository.findAll());
+    public List<EmployeeUI> findAll () {
+        return mapper.toUIEntity(userRepository.findAll());
     }
 
-    public Page<ProjectUI> findAll (Pageable pageable, List<FilterRequest> filters) {
+    public Page<EmployeeUI> findAll (Pageable pageable, List<FilterRequest> filters) {
         Predicate predicate = toPredicate(filters);
 
-        return mapper.toUIEntity(projectRepository.findAll(predicate, pageable),
+        return mapper.toUIEntity(userRepository.findAll(predicate, pageable),
                 pageable);
     }
 
-    public ProjectUI findByName (String name) {
-        return mapper.toUIEntity(projectRepository.findByName(name));
+    public EmployeeUI findByUsername (String name) {
+        return mapper.toUIEntity(userRepository.findByUsername(name));
     }
 
 
@@ -56,26 +57,39 @@ public class ProjectService {
 
         logger.info("Entering predicates :: " + filters);
 
-        QProject project = QProject.project;
+
+        QUser user = QUser.user;
         BooleanExpression result = null;
 
         try {
             for (FilterRequest filter : filters) {
 
-                Project.COLUMNS column = Project.COLUMNS.valueOf(filter.getProperty()
+                User.COLUMNS column = User.COLUMNS.valueOf(filter.getProperty()
                         .toUpperCase());
                 BooleanExpression expression = null;
 
                 switch (column) {
-                    case NAME:
+                    case USERNAME:
                         if (checkFilter(filter)) {
-                            expression = project.name.like("%"
+                            expression = user.username.like("%"
                                     + filter.getValue() + "%");
                         }
                         break;
-                    case DESCRIPTION:
+                    case FIRSTNAME:
                         if (checkFilter(filter)) {
-                            expression = project.description.like("%"
+                            expression = user.firstName.like("%"
+                                    + filter.getValue() + "%");
+                        }
+                        break;
+                    case LASTNAME:
+                        if (checkFilter(filter)) {
+                            expression = user.lastName.like("%"
+                                    + filter.getValue() + "%");
+                        }
+                        break;
+                    case EMAIL:
+                        if (checkFilter(filter)) {
+                            expression = user.email.like("%"
                                     + filter.getValue() + "%");
                         }
                         break;

@@ -5,7 +5,23 @@ Ext.define('kadetTODO.view.common.Footer', {
 
     extend: "Ext.panel.Panel",
 
-    html: "<h2><i>" + "FOOTER_TEXT".translate() + "</i></h2>",
-    alias: 'widget.commonFooter'
+    alias: 'widget.commonFooter',
 
+    layout: {
+        align: 'middle',
+        pack: 'center',
+        type: 'hbox'
+    },
+
+    items: [
+        {
+            xtype: 'box',
+            autoEl: {
+                tag: 'img',
+                src: '/resources/images/made-by-me.png',
+                width: '200px',
+                height: '50px'
+            }
+        }
+    ]
 });

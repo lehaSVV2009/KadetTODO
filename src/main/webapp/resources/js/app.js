@@ -13,6 +13,7 @@ Ext.require('kadetTODO.util.LocaleUtil', function () {
             appFolder: 'resources/js/app',
 
             controllers: [
+                'Router',
                 'NavigationController'
             ],
 

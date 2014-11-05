@@ -1,40 +1,20 @@
-package com.kadet.kadetTODO.persistence.entity.user;
+package com.kadet.kadetTODO.web.model;
 
-import javax.persistence.*;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import java.util.Date;
 
-@Entity(name = "user")
-public class User {
+/**
+ * Created by AlexSoroka on 11/5/2014.
+ */
+@JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.ANY)
+public class EmployeeUI {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(unique = true)
     private String username;
-    private String password;
     private String firstName;
     private String lastName;
-
     private String email;
-
-    @Temporal(TemporalType.DATE)
     private Date lastLoggedIn;
-
-    @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
-    private Role role;
-
-    public static enum COLUMNS {
-        USERNAME, FIRSTNAME, LASTNAME, EMAIL, LASTLOGGEDIN
-    }
-
-    public Long getId () {
-        return id;
-    }
-
-    public void setId (Long id) {
-        this.id = id;
-    }
 
     public String getUsername () {
         return username;
@@ -42,14 +22,6 @@ public class User {
 
     public void setUsername (String username) {
         this.username = username;
-    }
-
-    public String getPassword () {
-        return password;
-    }
-
-    public void setPassword (String password) {
-        this.password = password;
     }
 
     public String getFirstName () {
@@ -82,13 +54,5 @@ public class User {
 
     public void setLastLoggedIn (Date lastLoggedIn) {
         this.lastLoggedIn = lastLoggedIn;
-    }
-
-    public Role getRole () {
-        return role;
-    }
-
-    public void setRole (Role role) {
-        this.role = role;
     }
 }

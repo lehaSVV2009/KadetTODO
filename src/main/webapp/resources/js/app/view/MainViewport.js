@@ -9,7 +9,7 @@ Ext.define('kadetTODO.view.MainViewport', {
     renderTo: Ext.getBody(),
 
     requires: [
-        'kadetTODO.view.TabPanel',
+        'kadetTODO.view.ViewPanel',
         'kadetTODO.view.NavigationPanel',
         'kadetTODO.view.common.Header',
         'kadetTODO.view.common.Footer'
@@ -42,7 +42,7 @@ Ext.define('kadetTODO.view.MainViewport', {
         },
         {
             region: 'center',
-            xtype: 'todoTabPanel',
+            xtype: 'todoViewPanel',
             collapsible: true
         }
     ]

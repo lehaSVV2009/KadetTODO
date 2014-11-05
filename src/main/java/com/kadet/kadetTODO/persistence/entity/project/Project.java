@@ -21,6 +21,10 @@ public class Project {
     @Temporal(TemporalType.DATE)
     private Date createdDate;
 
+    public static enum COLUMNS {
+        NAME, DESCRIPTION, CREATEDDATE
+    }
+
     public Long getId () {
         return id;
     }

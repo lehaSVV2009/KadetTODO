@@ -1,39 +1,53 @@
 /**
  * Created by AlexSoroka on 11/4/2014.
  */
-Ext.define('kadetTODO.view.panel.ProjectsPanel', {
+Ext.define('kadetTODO.view.panel.EmployeesPanel', {
 
     extend: "Ext.grid.Panel",
 
-    alias: 'widget.projectsPanel',
+    alias: 'widget.employeesPanel',
 
-    store: 'ProjectStore',
+    store: 'EmployeeStore',
 
-    title: "PROJECTS_PANEL_TITLE".translate(),
+    title: "EMPLOYEES_PANEL_TITLE".translate(),
 
     selModel: Ext.create('Ext.selection.CheckboxModel'),
     iconCls: 'icon-user',
 
     columns: [
         {
-            text: "PROJECTS_PANEL_NAME".translate(),
+            text: "EMPLOYEES_PANEL_USERNAME".translate(),
             flex: 1,
             sortable: true,
             filterable: true,
-            dataIndex: 'name'
+            dataIndex: 'username'
         },
         {
-            text: "PROJECTS_PANEL_DESCRIPTION".translate(),
+            text: "EMPLOYEES_PANEL_FIRST_NAME".translate(),
             flex: 1,
             sortable: true,
             filterable: true,
-            dataIndex: 'description'
+            dataIndex: 'firstName'
+        },
+        {
+            text: "EMPLOYEES_PANEL_LAST_NAME".translate(),
+            flex: 1,
+            sortable: true,
+            filterable: true,
+            dataIndex: 'lastName'
+        },
+        {
+            text: "EMPLOYEES_PANEL_EMAIL".translate(),
+            flex: 1,
+            sortable: true,
+            filterable: true,
+            dataIndex: 'email'
         }
     ],
 
     dockedItems: [
         {
-            /*items: [
+            items: [
                 '-',
                 {
                     text: "BUTTON_ADD".translate(),
@@ -50,12 +64,12 @@ Ext.define('kadetTODO.view.panel.ProjectsPanel', {
 
                     }
                 }
-            ],*/
+            ],
             xtype: 'pagingtoolbar',
             dock: 'bottom',
-            store: 'ProjectStore',
+            store: 'EmployeeStore',
             displayInfo: true,
-            emptyMsg: "PROJECTS_PANEL_EMPTY_DISPLAY".translate()
+            emptyMsg: "EMPLOYEES_PANEL_EMPTY_DISPLAY".translate()
         }
     ]
 

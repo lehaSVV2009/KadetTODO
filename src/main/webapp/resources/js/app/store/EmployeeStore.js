@@ -1,11 +1,11 @@
 /**
- * Created by AlexSoroka on 11/4/2014.
+ * Created by AlexSoroka on 11/5/2014.
  */
-Ext.define("kadetTODO.store.ProjectStore", {
+Ext.define("kadetTODO.store.EmployeeStore", {
 
     extend: 'Ext.data.Store',
 
-    model: 'kadetTODO.model.Project',
+    model: 'kadetTODO.model.Employee',
 
     buffered: true,
 
@@ -18,7 +18,7 @@ Ext.define("kadetTODO.store.ProjectStore", {
     proxy: {
         type: 'ajax',
         api: {
-            read: '/api/projects'
+            read: '/api/employees'
         },
         reader: {
             type: 'json',

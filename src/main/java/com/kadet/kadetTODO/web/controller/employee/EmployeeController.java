@@ -1,11 +1,11 @@
-package com.kadet.kadetTODO.web.controller.project;
+package com.kadet.kadetTODO.web.controller.employee;
 
-import com.kadet.kadetTODO.service.project.ProjectService;
+import com.kadet.kadetTODO.service.project.EmployeeService;
 import com.kadet.kadetTODO.util.Strings;
 import com.kadet.kadetTODO.util.extjs.ExtJSResponse;
 import com.kadet.kadetTODO.util.extjs.FilterRequest;
 import com.kadet.kadetTODO.util.extjs.JsonUtils;
-import com.kadet.kadetTODO.web.model.ProjectUI;
+import com.kadet.kadetTODO.web.model.EmployeeUI;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,16 +22,16 @@ import java.util.Map;
  * Created by AlexSoroka on 11/3/2014.
  */
 @Controller
-@RequestMapping("/api/projects")
-public class ProjectController {
+@RequestMapping("/api/employees")
+public class EmployeeController {
 
     @Autowired
-    private ProjectService projectService;
+    private EmployeeService employeeService;
 
     @Autowired
-    private ExtJSResponse<ProjectUI> extJS;
+    private ExtJSResponse<EmployeeUI> extJS;
 
-    private Logger logger = Logger.getLogger(ProjectController.class);
+    private Logger logger = Logger.getLogger(EmployeeController.class);
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -39,8 +39,7 @@ public class ProjectController {
         try {
 
             Pageable pageable = new PageRequest(page - 1, limit);
-            Page<ProjectUI> projects = null;
-
+            Page<EmployeeUI> employees = null;
 
             List<FilterRequest> filters = new ArrayList<FilterRequest>();
 
@@ -48,12 +47,12 @@ public class ProjectController {
                 filters.addAll(JsonUtils.getListFromJsonArray((String) filter));
             }
 
-            projects = projectService.findAll(pageable, filters);
-            long total = projects.getTotalElements();
+            employees = employeeService.findAll(pageable, filters);
+            long total = employees.getTotalElements();
 
-            logger.debug("projects : " + projects.getContent());
+            logger.debug("employees : " + employees.getContent());
 
-            return extJS.mapOK(projects.getContent(), total);
+            return extJS.mapOK(employees.getContent(), total);
 
         } catch (Exception e) {
             logger.error(e);
@@ -66,8 +65,8 @@ public class ProjectController {
     @ResponseBody
     public Map<String, ? extends Object> getProject (@PathVariable("name") String name) {
         try {
-            ProjectUI projectUI = projectService.findByName(name);
-            return extJS.mapOK(projectUI);
+            EmployeeUI employeeUI = employeeService.findByUsername(name);
+            return extJS.mapOK(employeeUI);
         } catch (Exception e) {
             logger.error(e);
             return extJS.mapError(Strings.PROJECT_RETRIEVE_ERROR);
