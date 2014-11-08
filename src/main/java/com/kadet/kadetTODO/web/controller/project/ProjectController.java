@@ -138,15 +138,4 @@ public class ProjectController {
     }
 
 
-
-    /**
-     * Get task by task id and project id
-     */
-    @RequestMapping(value = "/{id}/tasks/{taskId}", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, ? extends Object> findProjectTask (@PathVariable("id") Long id, @PathVariable("taskId") Long taskId) {
-        return new HashMap<String, Object>();
-    }
-
-
 }

@@ -8,6 +8,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.ANY)
 public class TaskUI {
 
+    private Long projectId;
     private Long id;
     private String name;
     private String description;
@@ -34,5 +35,13 @@ public class TaskUI {
 
     public void setDescription (String description) {
         this.description = description;
+    }
+
+    public Long getProjectId () {
+        return projectId;
+    }
+
+    public void setProjectId (Long projectId) {
+        this.projectId = projectId;
     }
 }
