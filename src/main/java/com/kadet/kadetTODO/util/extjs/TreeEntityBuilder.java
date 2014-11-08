@@ -17,14 +17,26 @@ public class TreeEntityBuilder {
     private TreeEntityUI root = new TreeEntityUI();
 
     private TreeEntityUI projects = new TreeEntityUI();
-    private TreeEntityUI employees = new TreeEntityUI();
+    private TreeEntityUI myPage = new TreeEntityUI();
 
     public TreeEntityBuilder () {
-        root.setText("root");
-        employees.setText(Strings.EMPLOYEES_TEXT);
+        root.setText(Strings.ROOT_TEXT);
+        initRootEntities();
+        addRootEntitiesToRoot();
+    }
+
+    private void initRootEntities () {
+        // todo: remove later
+//        employees.setText(Strings.EMPLOYEES_TEXT);
         projects.setText(Strings.PROJECTS_TEXT);
-        root.addTreeEntity(employees);
+        myPage.setText(Strings.MY_PAGE_TEXT);
+        myPage.addTreeEntity(createLeaf(Strings.MY_TASKS_TEXT));
+    }
+
+    private void addRootEntitiesToRoot () {
+//        root.addTreeEntity(employees);
         root.addTreeEntity(projects);
+        root.addTreeEntity(myPage);
     }
 
     public void addProjects (List<Project> projects) {
@@ -36,6 +48,7 @@ public class TreeEntityBuilder {
     public void addProject (Project project) {
         projects.addTreeEntity(toTreeEntityUI(project));
     }
+/*
 
     public void addEmployees (List<User> employees) {
         for (User employee : employees) {
@@ -46,19 +59,29 @@ public class TreeEntityBuilder {
     public void addEmployee (User employee) {
         employees.addTreeEntity(toTreeEntityUI(employee));
     }
+*/
 
     public TreeEntityUI toTreeEntityUI (Project project) {
         TreeEntityUI projectNode = new TreeEntityUI();
+        projectNode.setEntityId(project.getId());
         projectNode.setText(project.getName());
-        projectNode.setLeaf(true);
+        projectNode.addTreeEntity(createLeaf(Strings.TASKS_TEXT));
+        projectNode.addTreeEntity(createLeaf(Strings.EMPLOYEES_TEXT));
         return projectNode;
     }
-
+/*
     public TreeEntityUI toTreeEntityUI (User employee) {
         TreeEntityUI employeeNode = new TreeEntityUI();
         employeeNode.setText(employee.getLastName() + " " + employee.getFirstName());
-        employeeNode.setLeaf(true);
+        employeeNode.addTreeEntity(createLeaf(Strings.TASKS_TEXT));
         return employeeNode;
+    }*/
+
+    private TreeEntityUI createLeaf (String text) {
+        TreeEntityUI treeEntityUI = new TreeEntityUI();
+        treeEntityUI.setText(text);
+        treeEntityUI.setLeaf(true);
+        return treeEntityUI;
     }
 
     public TreeEntityUI getRoot () {

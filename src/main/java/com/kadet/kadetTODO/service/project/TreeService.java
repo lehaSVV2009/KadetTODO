@@ -29,8 +29,9 @@ public class TreeService {
     public TreeEntityUI getTree () {
         TreeEntityBuilder treeEntityBuilder = new TreeEntityBuilder();
         List<Project> projects = projectRepository.findAll();
-        List<User> employees = userRepository.findAll();
-        treeEntityBuilder.addEmployees(employees);
+        // TODO: remove later
+//        List<User> employees = userRepository.findAll();
+//        treeEntityBuilder.addEmployees(employees);
         treeEntityBuilder.addProjects(projects);
         return treeEntityBuilder.getRoot();
     }

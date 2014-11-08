@@ -21,6 +21,7 @@ public class ProjectMapper implements Mapper<ProjectUI, Project> {
         ProjectUI projectUI = null;
         if (project != null) {
             projectUI = new ProjectUI();
+            projectUI.setId(project.getId());
             projectUI.setName(project.getName());
             projectUI.setDescription(project.getDescription());
             projectUI.setCreatedDate(project.getCreatedDate());
@@ -50,7 +51,7 @@ public class ProjectMapper implements Mapper<ProjectUI, Project> {
         Project project = null;
         if (ui != null) {
             project = new Project();
-            project.setName(ui.getName());
+            project.setId(ui.getId());
         }
         return project;
     }

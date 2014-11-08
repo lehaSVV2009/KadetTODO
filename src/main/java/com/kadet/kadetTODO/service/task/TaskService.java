@@ -1,14 +1,13 @@
-package com.kadet.kadetTODO.service.project;
+package com.kadet.kadetTODO.service.task;
 
 import com.kadet.kadetTODO.persistence.entity.project.Project;
 import com.kadet.kadetTODO.persistence.entity.project.QProject;
+import com.kadet.kadetTODO.persistence.entity.task.QTask;
 import com.kadet.kadetTODO.persistence.entity.task.Task;
-import com.kadet.kadetTODO.persistence.repo.ProjectRepository;
 import com.kadet.kadetTODO.persistence.repo.TaskRepository;
-import com.kadet.kadetTODO.service.task.TaskService;
 import com.kadet.kadetTODO.util.extjs.FilterRequest;
-import com.kadet.kadetTODO.util.mapper.ProjectMapper;
 import com.kadet.kadetTODO.util.mapper.TaskMapper;
+import com.kadet.kadetTODO.web.model.EmployeeUI;
 import com.kadet.kadetTODO.web.model.ProjectUI;
 import com.kadet.kadetTODO.web.model.TaskUI;
 import com.mysema.query.types.Predicate;
@@ -22,57 +21,50 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by AlexSoroka on 11/3/2014.
+ * Created by AlexSoroka on 11/8/2014.
  */
-
 @Service
-public class ProjectService {
+public class TaskService {
+
+    private Logger logger = Logger.getLogger(TaskService.class);
 
     @Autowired
-    private ProjectRepository projectRepository;
+    private TaskRepository taskRepository;
 
     @Autowired
-    private ProjectMapper projectMapper;
+    private TaskMapper taskMapper;
 
-    @Autowired
-    private TaskService taskService;
-
-    private Logger logger = Logger.getLogger(ProjectService.class);
-
-    public ProjectService () {
-        super();
+    public List<TaskUI> findAll () {
+        return taskMapper.toUIEntity(taskRepository.findAll());
     }
 
-
-    public List<ProjectUI> findAll () {
-        return projectMapper.toUIEntity(projectRepository.findAll());
-    }
-
-    public Page<ProjectUI> findAll (Pageable pageable, List<FilterRequest> filters) {
+    public Page<TaskUI> findAll (Pageable pageable, List<FilterRequest> filters) {
         Predicate predicate = toPredicate(filters);
-        return projectMapper.toUIEntity(projectRepository.findAll(predicate, pageable),
+
+        return taskMapper.toUIEntity(taskRepository.findAll(predicate, pageable),
                 pageable);
     }
 
-    public ProjectUI findByName (String name) {
-        return projectMapper.toUIEntity(projectRepository.findByName(name));
+    public Page<TaskUI> findByProjectId (Long projectId, Pageable pageable, List<FilterRequest> filters) {
+        Page<Task> tasks = taskRepository.findByProjectId(projectId, pageable);
+        return taskMapper.toUIEntity(tasks, pageable);
     }
 
-    public ProjectUI findById (Long id) {
-        return projectMapper.toUIEntity(projectRepository.findOne(id));
+    public List<TaskUI> findByProjectId (Long projectId) {
+        return taskMapper.toUIEntity(taskRepository.findByProjectId(projectId));
     }
 
     private Predicate toPredicate (final List<FilterRequest> filters) {
 
         logger.info("Entering predicates :: " + filters);
 
-        QProject project = QProject.project;
+        QTask project = QTask.task;
         BooleanExpression result = null;
 
         try {
             for (FilterRequest filter : filters) {
 
-                Project.COLUMNS column = Project.COLUMNS.valueOf(filter.getProperty()
+                Task.COLUMNS column = Task.COLUMNS.valueOf(filter.getProperty()
                         .toUpperCase());
                 BooleanExpression expression = null;
 

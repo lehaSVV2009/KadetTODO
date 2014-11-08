@@ -1,6 +1,5 @@
-package com.kadet.kadetTODO.service.project;
+package com.kadet.kadetTODO.service.employee;
 
-import com.kadet.kadetTODO.persistence.entity.project.Project;
 import com.kadet.kadetTODO.persistence.entity.user.QUser;
 import com.kadet.kadetTODO.persistence.entity.user.User;
 import com.kadet.kadetTODO.persistence.repo.UserRepository;
@@ -56,7 +55,6 @@ public class EmployeeService {
     private Predicate toPredicate (final List<FilterRequest> filters) {
 
         logger.info("Entering predicates :: " + filters);
-
 
         QUser user = QUser.user;
         BooleanExpression result = null;

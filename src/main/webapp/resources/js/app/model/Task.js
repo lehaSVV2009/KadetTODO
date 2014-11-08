@@ -1,7 +1,7 @@
 /**
  * Created by AlexSoroka on 11/4/2014.
  */
-Ext.define('kadetTODO.model.Project', {
+Ext.define('kadetTODO.model.Task', {
 
     extend: 'Ext.data.Model',
     idProperty: 'id',
@@ -18,11 +18,6 @@ Ext.define('kadetTODO.model.Project', {
             name: 'description',
             type: 'string'
         }
-    ],
-
-    proxy: {
-        type: 'rest',
-        url: '/api/projects'
-    }
+    ]
 
 });

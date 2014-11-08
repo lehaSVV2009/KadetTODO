@@ -1,6 +1,6 @@
 package com.kadet.kadetTODO.web.controller.employee;
 
-import com.kadet.kadetTODO.service.project.EmployeeService;
+import com.kadet.kadetTODO.service.employee.EmployeeService;
 import com.kadet.kadetTODO.util.Strings;
 import com.kadet.kadetTODO.util.extjs.ExtJSResponse;
 import com.kadet.kadetTODO.util.extjs.FilterRequest;

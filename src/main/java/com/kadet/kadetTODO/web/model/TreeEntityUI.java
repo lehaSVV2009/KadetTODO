@@ -15,6 +15,8 @@ public class TreeEntityUI {
 
     private List<TreeEntityUI> children = new ArrayList<TreeEntityUI>();
 
+    private Long entityId;
+
     private String text;
     private boolean leaf;
     private String cls;
@@ -53,6 +55,14 @@ public class TreeEntityUI {
 
     public void setChildren (List<TreeEntityUI> children) {
         this.children = children;
+    }
+
+    public Long getEntityId () {
+        return entityId;
+    }
+
+    public void setEntityId (Long entityId) {
+        this.entityId = entityId;
     }
 
 

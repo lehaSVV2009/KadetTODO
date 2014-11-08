@@ -48,8 +48,7 @@ CREATE TABLE IF NOT EXISTS `task` (
   `id`           BIGINT(20)   NOT NULL AUTO_INCREMENT,
   `name`         VARCHAR(255) NOT NULL,
   `description`  VARCHAR(255) DEFAULT NULL,
-  `project`      BIGINT(20)   NOT NULL,
-  `manager`      BIGINT(20)   NOT NULL,
+  `projectId`    BIGINT(20)   NOT NULL,
   `status`       INT(10)      NOT NULL DEFAULT 1,
   `level`        INT(10)      NOT NULL DEFAULT 1,
   `openedDate`   DATETIME DEFAULT NULL,
@@ -60,24 +59,24 @@ CREATE TABLE IF NOT EXISTS `task` (
   `removedDate`  DATETIME DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `taskname` (`name`),
-  KEY `FKPROJECT` (`project`),
-  CONSTRAINT `FKPROJECT` FOREIGN KEY (`project`) REFERENCES `project` (`id`)
+  KEY `FKPROJECT` (`projectId`),
+  CONSTRAINT `FKPROJECT` FOREIGN KEY (`projectId`) REFERENCES `project` (`id`)
 )
   ENGINE =InnoDB
   AUTO_INCREMENT =1;
-/*
+
 -- User - Project (many to many)
 CREATE TABLE IF NOT EXISTS `projectUser` (
-  `id`        BIGINT(20)   NOT NULL AUTO_INCREMENT,
-  `projectId` VARCHAR(255) NOT NULL,
-  `accountId` BIGINT(20)   NOT NULL,
+  `id`        BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `projectId` BIGINT(20) NOT NULL,
+  `accountId` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FKPUPRJID` FOREIGN KEY (`projectId`) REFERENCES `project` (`id`),
   CONSTRAINT `FKPUUSRID` FOREIGN KEY (`accountId`) REFERENCES `user` (`id`)
 )
   ENGINE =InnoDB
   AUTO_INCREMENT =1;
-*/
+
 -- Task - User (many to many)
 CREATE TABLE IF NOT EXISTS `taskAssignedToUser` (
   `id`        BIGINT(20) NOT NULL AUTO_INCREMENT,

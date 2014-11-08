@@ -3,7 +3,11 @@
  */
 Ext.Loader.setPath('kadetTODO', 'resources/js/app');
 
-Ext.require('kadetTODO.util.LocaleUtil', function () {
+Ext.require([
+    'kadetTODO.util.LocaleUtil',
+    'kadetTODO.util.ParameterProxy'
+], function () {
+
 
     Ext.create('kadetTODO.util.LocaleUtil').setLanguage(function () {
 

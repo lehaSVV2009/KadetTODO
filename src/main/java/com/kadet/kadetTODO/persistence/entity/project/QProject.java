@@ -1,11 +1,10 @@
 package com.kadet.kadetTODO.persistence.entity.project;
 
+import com.kadet.kadetTODO.persistence.entity.task.QTask;
+import com.kadet.kadetTODO.persistence.entity.task.Task;
 import com.mysema.query.types.Path;
 import com.mysema.query.types.PathMetadata;
-import com.mysema.query.types.path.DateTimePath;
-import com.mysema.query.types.path.EntityPathBase;
-import com.mysema.query.types.path.NumberPath;
-import com.mysema.query.types.path.StringPath;
+import com.mysema.query.types.path.*;
 
 import javax.annotation.Generated;
 
@@ -17,9 +16,11 @@ import static com.mysema.query.types.PathMetadataFactory.forVariable;
  * Created by AlexSoroka on 11/4/2014.
  */
 @Generated("com.mysema.query.codegen.EntitySerializer")
-public class QProject extends EntityPathBase<Project>{
+public class QProject extends EntityPathBase<Project> {
 
     private static final long serialVersionUID = 1621585841;
+
+    private static final PathInits INITS = PathInits.DIRECT;
 
     public static final QProject project = new QProject("project");
 
@@ -31,15 +32,21 @@ public class QProject extends EntityPathBase<Project>{
 
     public final DateTimePath<Date> createdDate = createDateTime("createdDate", Date.class);
 
-    public QProject(String variable) {
-        super(Project.class, forVariable(variable));
+    public final SetPath<Task, QTask> tasks = this.createSet("tasks", Task.class, QTask.class);
+
+    public QProject (String variable) {
+        this(Project.class, forVariable(variable), INITS);
     }
 
-    public QProject(Path<? extends Project> entity) {
-        super(entity.getType(), entity.getMetadata());
+    public QProject (PathMetadata<?> metadata) {
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
     }
 
-    public QProject(PathMetadata<?> metadata) {
-        super(Project.class, metadata);
+    public QProject (PathMetadata<?> metadata, PathInits inits) {
+        this(Project.class, metadata, inits);
+    }
+
+    public QProject (Class<? extends Project> type, PathMetadata<?> metadata, PathInits inits) {
+        super(type, metadata, inits);
     }
 }
