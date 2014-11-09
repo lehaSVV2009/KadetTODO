@@ -18,7 +18,8 @@ Ext.require([
 
             controllers: [
                 'Router',
-                'NavigationController'
+                'NavigationController',
+                'TasksController'
             ],
 
             launch: function () {

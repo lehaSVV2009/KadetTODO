@@ -16,7 +16,8 @@ Ext.define('kadetTODO.controller.Router', {
         'panel.ProjectsPanel',
         'panel.EmployeesPanel',
         'panel.TasksPanel',
-        'panel.ProjectPanel'
+        'panel.ProjectPanel',
+        'form.NewTaskForm'
     ],
     refs: [
         {
@@ -35,8 +36,9 @@ Ext.define('kadetTODO.controller.Router', {
         'projects/:id': 'onProject',
 
         'projects/:id/tasks': 'onTasks',
-        'projects/:id/tasks/:taskId': 'onTask',
-        'projects/:id/tasks/newTask': 'newTask',
+
+        'tasks/:taskId': 'onTask',
+        'tasks/newTask': 'newTask',
 
         'projects/:id/employees': 'onProjectEmployees',
 
@@ -142,19 +144,25 @@ Ext.define('kadetTODO.controller.Router', {
 
     /**
      *
-     * @param id        Project id
      * @param taskId    Task id
      */
-    onTask: function (id, taskId) {
-
+    onTask: function (taskId) {
     },
 
     /**
      *
-     * @param id    Project id
      */
-    newTask: function (id) {
-
+    newTask: function () {
+        var viewPanel = this.getViewPanel();
+        var newPanel = Ext.create('Ext.panel.Panel', {
+            xtype: 'gridPanel',
+            items: [
+                {
+                    xtype: 'newTaskForm'
+                }
+            ]
+        });
+        viewPanel.updateByItem(newPanel);
     },
 
     /**
