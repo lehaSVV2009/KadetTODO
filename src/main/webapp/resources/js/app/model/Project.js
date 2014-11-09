@@ -8,15 +8,18 @@ Ext.define('kadetTODO.model.Project', {
     fields: [
         {
             name: 'id',
-            type: 'int'
+            type: 'int',
+            mapping: 'id'
         },
         {
             name: 'name',
-            type: 'string'
+            type: 'string',
+            mapping: 'name'
         },
         {
             name: 'description',
-            type: 'string'
+            type: 'string',
+            mapping: 'description'
         }
     ],
 

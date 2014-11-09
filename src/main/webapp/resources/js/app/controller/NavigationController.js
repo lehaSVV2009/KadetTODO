@@ -17,10 +17,10 @@ Ext.define('kadetTODO.controller.NavigationController', {
 
     init: function () {
         this.control({
-            'todoNavigationPanel button[text=Expand All]': {
+            'todoNavigationPanel button[action=expandAll]': {
                 click: this.expandAll
             },
-            'todoNavigationPanel button[text=Collapse All]': {
+            'todoNavigationPanel button[action=collapseAll]': {
                 click: this.collapseAll
             },
             'todoNavigationPanel': {

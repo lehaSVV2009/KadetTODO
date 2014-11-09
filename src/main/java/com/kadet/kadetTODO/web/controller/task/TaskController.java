@@ -102,23 +102,24 @@ public class TaskController {
     }
 
 
-    @RequestMapping (value = "/tasks", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping (value = "/tasks/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Map<String, ? extends Object> deleteTasks (@RequestParam(value = "tasks") String taskNames) throws Exception {
+    public Map<String, ? extends Object> deleteTasks (@RequestParam(value = "tasks") String taskIds) throws Exception {
         try {
             List<TaskUI> deletedTasks = new ArrayList<TaskUI>();
-            for (String taskName : taskNames.substring(1, taskNames.length() - 1).replaceAll("\"", "").split(",")) {
-                TaskUI taskUI = taskService.findByName(taskName);
+            for (String stringTaskId : taskIds.substring(1, taskIds.length() - 1).replaceAll("\"", "").split(",")) {
+                TaskUI taskUI = taskService.findById(Long.parseLong(stringTaskId));
                 if (taskUI != null) {
                     taskService.delete(taskUI);
                     deletedTasks.add(taskUI);
                 }
             }
-            return extJS.mapOK(deletedTasks);
+            return extJS.mapOK(deletedTasks, Strings.TASK_DELETE_SUCCESS);
         } catch (Exception e) {
             logger.error(e);
             return extJS.mapError(Strings.TASK_DELETE_ERROR);
         }
     }
+
 
 }

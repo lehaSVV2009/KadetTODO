@@ -11,7 +11,7 @@ import static com.mysema.query.types.PathMetadataFactory.forVariable;
 /**
  * Created by AlexSoroka on 11/8/2014.
  */
-public class QTask extends EntityPathBase<Task> {
+public class QTask extends EntityPathBase<Task>  {
 
     private static final long serialVersionUID = -2010828676;
 
@@ -21,7 +21,7 @@ public class QTask extends EntityPathBase<Task> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final StringPath name = createString("name");
+    public final StringPath title = createString("title");
 
     public final StringPath description = createString("description");
 
@@ -37,10 +37,9 @@ public class QTask extends EntityPathBase<Task> {
 
     public final DateTimePath<Date> removedDate = createDateTime("removedDate", Date.class);
 
-    // TODO: EnumPath
-    public final NumberPath<Integer> status = createNumber("status", Integer.class);
+    public final StringPath level = createString("level");
 
-    public final NumberPath<Integer> level = createNumber("level", Integer.class);
+    public final NumberPath<Integer> status = createNumber("status", Integer.class);
 
     public final QProject project;
 

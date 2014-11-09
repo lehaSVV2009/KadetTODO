@@ -11,9 +11,11 @@ Ext.define('kadetTODO.view.NavigationPanel', {
     dockedItems: [{
         xtype: 'toolbar',
         items: [{
-            text: "NAVIGATION_PANEL_EXPAND_ALL_BUTTON_TEXT".translate()
+            text: "NAVIGATION_PANEL_EXPAND_ALL_BUTTON_TEXT".translate(),
+            action: 'expandAll'
         }, {
-            text: "NAVIGATION_PANEL_COLLAPSE_ALL_BUTTON_TEXT".translate()
+            text: "NAVIGATION_PANEL_COLLAPSE_ALL_BUTTON_TEXT".translate(),
+            action: 'collapseAll'
         }]
     }]
 

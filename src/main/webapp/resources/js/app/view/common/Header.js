@@ -28,9 +28,7 @@ Ext.define('kadetTODO.view.common.Header', {
                 },
                 {
                     text: "HEADER_NEW_TASK_BUTTON_TEXT".translate(),
-                    handler: function () {
-
-                    }
+                    action: 'newTask'
                 },
                 '->',
                 {

@@ -15,7 +15,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String title;
     private String description;
 
     @Temporal(TemporalType.DATE)
@@ -38,14 +38,15 @@ public class Task {
 
     //TODO: to enum
     private Integer status;
-    private Integer level;
+
+    private String level;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "projectId")
     private Project project;
 
     public static enum COLUMNS {
-        NAME, DESCRIPTION, OPENEDDATE
+        TITLE, DESCRIPTION, OPENEDDATE
     }
 
     public Long getId () {
@@ -56,12 +57,12 @@ public class Task {
         this.id = id;
     }
 
-    public String getName () {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName (String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription () {
@@ -120,6 +121,14 @@ public class Task {
         this.removedDate = removedDate;
     }
 
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
     public Integer getStatus () {
         return status;
     }
@@ -128,13 +137,6 @@ public class Task {
         this.status = status;
     }
 
-    public Integer getLevel () {
-        return level;
-    }
-
-    public void setLevel (Integer level) {
-        this.level = level;
-    }
 
     public Project getProject () {
         return project;

@@ -33,24 +33,6 @@ Ext.define('kadetTODO.view.panel.ProjectsPanel', {
 
     dockedItems: [
         {
-            /*items: [
-                '-',
-                {
-                    text: "BUTTON_ADD".translate(),
-                    itemId: 'add',
-                    handler: function () {
-
-                    }
-                },
-                '-',
-                {
-                    text: "BUTTON_REMOVE".translate(),
-                    action: 'delete',
-                    handler: function () {
-
-                    }
-                }
-            ],*/
             xtype: 'pagingtoolbar',
             dock: 'bottom',
             store: 'ProjectStore',

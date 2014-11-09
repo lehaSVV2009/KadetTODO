@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `id`          BIGINT(20)   NOT NULL AUTO_INCREMENT,
   `name`        VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) DEFAULT NULL,
-  `createdDate` DATETIME DEFAULT NULL,
+  `createdDate` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `projectname` (`name`)
 )
@@ -46,19 +46,18 @@ CREATE TABLE IF NOT EXISTS `project` (
 -- Task
 CREATE TABLE IF NOT EXISTS `task` (
   `id`           BIGINT(20)   NOT NULL AUTO_INCREMENT,
-  `name`         VARCHAR(255) NOT NULL,
+  `title`        VARCHAR(255) NOT NULL,
   `description`  VARCHAR(255) DEFAULT NULL,
   `projectId`    BIGINT(20)   NOT NULL,
   `status`       INT(10)      NOT NULL DEFAULT 1,
-  `level`        INT(10)      NOT NULL DEFAULT 1,
-  `openedDate`   DATETIME DEFAULT NULL,
+  `level`        VARCHAR(255) NOT NULL DEFAULT 'CRITICAL',
+  `openedDate`   DATETIME DEFAULT CURRENT_TIMESTAMP,
   `modifiedDate` DATETIME DEFAULT NULL,
   `resolvedDate` DATETIME DEFAULT NULL,
   `closedDate`   DATETIME DEFAULT NULL,
   `reopenedDate` DATETIME DEFAULT NULL,
   `removedDate`  DATETIME DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `taskname` (`name`),
   KEY `FKPROJECT` (`projectId`),
   CONSTRAINT `FKPROJECT` FOREIGN KEY (`projectId`) REFERENCES `project` (`id`)
 )

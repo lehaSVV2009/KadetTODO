@@ -7,8 +7,6 @@ Ext.define('kadetTODO.view.panel.EmployeesPanel', {
 
     alias: 'widget.employeesPanel',
 
-    store: 'EmployeeStore',
-
     title: "EMPLOYEES_PANEL_TITLE".translate(),
 
     selModel: Ext.create('Ext.selection.CheckboxModel'),
@@ -47,7 +45,7 @@ Ext.define('kadetTODO.view.panel.EmployeesPanel', {
 
     dockedItems: [
         {
-            items: [
+           /* items: [
                 '-',
                 {
                     text: "BUTTON_ADD".translate(),
@@ -64,10 +62,9 @@ Ext.define('kadetTODO.view.panel.EmployeesPanel', {
 
                     }
                 }
-            ],
+            ],*/
             xtype: 'pagingtoolbar',
             dock: 'bottom',
-            store: 'EmployeeStore',
             displayInfo: true,
             emptyMsg: "EMPLOYEES_PANEL_EMPTY_DISPLAY".translate()
         }

@@ -31,12 +31,13 @@ Ext.define('kadetTODO.view.form.NewTaskForm', {
                     border: false, layout: 'anchor', defaultType: 'textfield',
                     items: [
                         {
-                            fieldLabel: 'NEW_TASK_FORM_NAME'.translate(),
-                            name: 'name',
+                            fieldLabel: 'NEW_TASK_FORM_TASK_TITLE'.translate(),
+                            name: 'title',
                             anchor: '95%',
                             allowBlank: false
                         },
                         {
+                            xtype: 'textarea',
                             fieldLabel: 'NEW_TASK_FORM_DESCRIPTION'.translate(),
                             name: 'description',
                             anchor: '95%',
@@ -44,12 +45,29 @@ Ext.define('kadetTODO.view.form.NewTaskForm', {
                         },
                         {
                             fieldLabel: 'NEW_TASK_FORM_PROJECT'.translate(),
-                            store: 'kadetTODO.store.ProjectStore',
+                            store: 'ProjectStore',
                             name: 'projectName',
                             anchor: '95%',
                             xtype: 'combobox',
                             allowBlank: false,
                             displayField: 'name'
+                        },
+                        {
+                            fieldLabel: 'NEW_TASK_FORM_LEVEL'.translate(),
+                            name: 'level',
+                            anchor: '95%',
+                            xtype: 'combobox',
+                            allowBlank: false,
+                            displayField: 'text',
+                            valueField: 'text',
+                            store: {
+                                autoLoad: true,
+                                fields: ['text'],
+                                proxy: {
+                                    type: 'ajax',
+                                    url: 'api/levels'
+                                }
+                            }
                         }
                     ]
                 }
@@ -60,26 +78,11 @@ Ext.define('kadetTODO.view.form.NewTaskForm', {
         {
             text: 'BUTTON_SAVE'.translate(),
             formBind: true,
-            handler: function () {
-                //this.up('form').getForm().reset();
-                /*productDetailsForm.getForm().submit(
-                 {
-                 success: function (form, action) {
-                 window.location = "<c:url value=" / product
-                 "/>";
-                 },
-                 failure: function (form, action) {
-                 Ext.Msg.alert('Warning', action.result.message);
-                 }
-                 });*/
-            }
+            action: 'save'
         },
         {
             text: 'BUTTON_CANCEL'.translate(),
-            handler: function () {
-                /*window.location = "<c:url value=" / product
-                 "/>";*/
-            }
+            action: 'cancel'
         }
     ],
     buttonAlign: 'left'

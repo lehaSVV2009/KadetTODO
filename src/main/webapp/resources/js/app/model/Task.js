@@ -12,15 +12,31 @@ Ext.define('kadetTODO.model.Task', {
             mapping: 'id'
         },
         {
-            name: 'name',
+            name: 'title',
             type: 'string',
-            mapping: 'name'
+            mapping: 'title'
         },
         {
             name: 'description',
             type: 'string',
             mapping: 'description'
+        },
+        {
+            name: 'projectName',
+            type: 'string',
+            mapping: 'projectName'
+        },
+        {
+            name: 'level',
+            type: 'string',
+            mapping: 'level'
         }
-    ]
+    ],
+
+    proxy: {
+        type: 'rest',
+        url: '/api/tasks'
+    }
+
 
 });

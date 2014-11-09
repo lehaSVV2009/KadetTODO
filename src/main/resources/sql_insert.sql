@@ -23,15 +23,15 @@ INSERT INTO `kadetTODO`.`project`
 
 -- Tasks
 INSERT INTO `kadetTODO`.`task`
-(`name`, `description`, `projectId`, `status`, `level`, `openedDate`) VALUES
-  ('Project1-1', '1.Description of task 1', 1, 1, 1, sysdate()),
-  ('Project1-2', '1.Description of task 2', 1, 2, 2, sysdate()),
-  ('Project1-3', '1.Description of task 3', 1, 3, 3, sysdate()),
-  ('Project1-4', '1.Description of task 4', 1, 4, 2, sysdate()),
-  ('Project2-1', '2.Description of task 1', 2, 1, 1, sysdate()),
-  ('Project2-2', '2.Description of task 2', 2, 2, 3, sysdate()),
-  ('Project2-3', '2.Description of task 3', 2, 3, 3, sysdate()),
-  ('Project2-4', '2.Description of task 4', 2, 4, 3, sysdate());
+(`title`, `description`, `projectId`, `status`, `level`, `openedDate`) VALUES
+  ('Project1-1', '1.Description of task 1', 1, 1, 'CRITICAL', sysdate()),
+  ('Project1-2', '1.Description of task 2', 1, 2, 'CRITICAL', sysdate()),
+  ('Project1-3', '1.Description of task 3', 1, 3, 'CRITICAL', sysdate()),
+  ('Project1-4', '1.Description of task 4', 1, 4, 'CRITICAL', sysdate()),
+  ('Project2-1', '2.Description of task 1', 2, 1, 'CRITICAL', sysdate()),
+  ('Project2-2', '2.Description of task 2', 2, 2, 'CRITICAL', sysdate()),
+  ('Project2-3', '2.Description of task 3', 2, 3, 'CRITICAL', sysdate()),
+  ('Project2-4', '2.Description of task 4', 2, 4, 'CRITICAL', sysdate());
 
 -- User - task
 INSERT INTO `kadetTODO`.`projectUser`

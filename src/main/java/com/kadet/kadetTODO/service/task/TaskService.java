@@ -1,15 +1,12 @@
 package com.kadet.kadetTODO.service.task;
 
 import com.kadet.kadetTODO.persistence.entity.project.Project;
-import com.kadet.kadetTODO.persistence.entity.project.QProject;
 import com.kadet.kadetTODO.persistence.entity.task.QTask;
 import com.kadet.kadetTODO.persistence.entity.task.Task;
 import com.kadet.kadetTODO.persistence.repo.ProjectRepository;
 import com.kadet.kadetTODO.persistence.repo.TaskRepository;
 import com.kadet.kadetTODO.util.extjs.FilterRequest;
 import com.kadet.kadetTODO.util.mapper.TaskMapper;
-import com.kadet.kadetTODO.web.model.EmployeeUI;
-import com.kadet.kadetTODO.web.model.ProjectUI;
 import com.kadet.kadetTODO.web.model.TaskUI;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.BooleanExpression;
@@ -20,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,7 +62,8 @@ public class TaskService {
 
 
     public TaskUI findById (Long taskId) {
-        return taskMapper.toUIEntity(taskRepository.findOne(taskId));
+        Task task = taskRepository.findOne(taskId);
+        return taskMapper.toUIEntity(task);
     }
 
     public TaskUI read (TaskUI taskUI) {
@@ -85,8 +84,8 @@ public class TaskService {
         );
     }
 
-    public TaskUI findByName (String name) {
-        return taskMapper.toUIEntity(taskRepository.findByName(name));
+    public TaskUI findByTitle(String title) {
+        return taskMapper.toUIEntity(taskRepository.findByTitle(title));
     }
 
 
@@ -101,8 +100,13 @@ public class TaskService {
             return null;
         }
         // TODO: if (..) set project
+        existing.setTitle(taskUI.getTitle());
         existing.setDescription(taskUI.getDescription());
-        // todo a lot of set...
+        existing.setLevel(taskUI.getLevel());
+        if (taskUI.getProjectName() != null) {
+            Project project = projectRepository.findByName(taskUI.getProjectName());
+            existing.setProject(project);
+        }
 
         Task saved = null;
 
@@ -129,6 +133,20 @@ public class TaskService {
         }
         taskRepository.delete(existing);
         return true;
+    }
+
+
+    /**
+     *
+     *  ADDITIONAL
+     *
+     */
+    public List<String> getLevels () {
+        return new ArrayList<String>(){{
+            add("CRITICAL");
+            add("MIDDLE");
+            add("SIMPLE");
+        }};
     }
 
 
@@ -161,9 +179,9 @@ public class TaskService {
                 BooleanExpression expression = null;
 
                 switch (column) {
-                    case NAME:
+                    case TITLE:
                         if (checkFilter(filter)) {
-                            expression = project.name.like(
+                            expression = project.title.like(
                                     "%"
                                             + filter.getValue() + "%"
                             );

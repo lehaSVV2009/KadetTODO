@@ -17,7 +17,8 @@ Ext.define('kadetTODO.controller.Router', {
         'panel.EmployeesPanel',
         'panel.TasksPanel',
         'panel.ProjectPanel',
-        'form.NewTaskForm'
+        'form.NewTaskForm',
+        'form.EditTaskForm'
     ],
     refs: [
         {
@@ -38,7 +39,8 @@ Ext.define('kadetTODO.controller.Router', {
         'projects/:id/tasks': 'onTasks',
 
         'tasks/:taskId': 'onTask',
-        'tasks/newTask': 'newTask',
+        'tasks/newTask': 'onNewTask',
+        'tasks/:taskId/edit': 'onEditTask',
 
         'projects/:id/employees': 'onProjectEmployees',
 
@@ -78,18 +80,6 @@ Ext.define('kadetTODO.controller.Router', {
      */
     onProject: function (id) {
         var me = this;
-        /*var newProjectForm = Ext.create('kadetTODO.view.panel.ProjectPanel', {
-         model: Ext.create('kadetTODO.model.Project', {
-         id: id
-         })
-         });
-         newProjectForm.doLayout();
-         var newPanel = Ext.create('Ext.panel.Panel', {
-         xtype: 'gridPanel',
-         items: [ newProjectForm ]
-         });
-         viewPanel.updateByItem(newPanel);
-         */
         var Project = Ext.create('kadetTODO.model.Project', {
             id: id
         });
@@ -101,10 +91,14 @@ Ext.define('kadetTODO.controller.Router', {
                     var projectForm = Ext.create('kadetTODO.view.panel.ProjectPanel', {
                         title: project.data.data.name
                     });
-                    projectForm.getForm().loadRecord(project);
+                    projectForm.getForm().setValues({
+                        name: project.data.data.name,
+                        description: project.data.data.description,
+                        createdDate: project.data.data.createdDate
+                    });
                     var newPanel = Ext.create('Ext.panel.Panel', {
                         xtype: 'gridPanel',
-                        items: [ projectForm ]
+                        items: [projectForm]
                     });
                     viewPanel.updateByItem(newPanel);
                 }
@@ -149,10 +143,8 @@ Ext.define('kadetTODO.controller.Router', {
     onTask: function (taskId) {
     },
 
-    /**
-     *
-     */
-    newTask: function () {
+
+    onNewTask: function () {
         var viewPanel = this.getViewPanel();
         var newPanel = Ext.create('Ext.panel.Panel', {
             xtype: 'gridPanel',
@@ -163,6 +155,36 @@ Ext.define('kadetTODO.controller.Router', {
             ]
         });
         viewPanel.updateByItem(newPanel);
+    },
+
+
+    onEditTask: function (id) {
+        var viewPanel = this.getViewPanel();
+        var task = Ext.create('kadetTODO.model.Task',
+            {id: id}
+        );
+        task.load({
+            success: function (task) {
+                if (task) {
+                    var editForm = Ext.create('kadetTODO.view.form.EditTaskForm');
+
+                    editForm.getForm().setValues({
+                        id: task.data.data.id,
+                        title: task.data.data.title,
+                        description: task.data.data.description,
+                        projectName: task.data.data.projectName,
+                        level: task.data.data.level
+                    });
+
+                    var newPanel = Ext.create('Ext.panel.Panel', {
+                        xtype: 'gridPanel',
+                        items: [editForm]
+                    });
+                    viewPanel.updateByItem(newPanel);
+                }
+            }
+        });
+
     },
 
     /**

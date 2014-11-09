@@ -21,7 +21,14 @@ Ext.define('kadetTODO.view.panel.TasksPanel', {
             flex: 1,
             sortable: true,
             filterable: true,
-            dataIndex: 'name'
+            dataIndex: 'id'
+        },
+        {
+            text: "TASKS_PANEL_TASK_TITLE".translate(),
+            flex: 1,
+            sortable: true,
+            filterable: true,
+            dataIndex: 'title'
         },
         {
             text: "TASKS_PANEL_DESCRIPTION".translate(),
@@ -38,26 +45,17 @@ Ext.define('kadetTODO.view.panel.TasksPanel', {
                 '-',
                 {
                     text: "BUTTON_ADD".translate(),
-                    itemId: 'add',
-                    handler: function () {
-
-                    }
+                    action: 'add'
                 },
                 '-',
                 {
                     text: "BUTTON_EDIT".translate(),
-                    action: 'edit',
-                    handler: function () {
-
-                    }
+                    action: 'edit'
                 },
                 '-',
                 {
                     text: "BUTTON_REMOVE".translate(),
-                    action: 'delete',
-                    handler: function () {
-
-                    }
+                    action: 'delete'
                 }
             ],
             xtype: 'pagingtoolbar',
@@ -65,6 +63,17 @@ Ext.define('kadetTODO.view.panel.TasksPanel', {
             displayInfo: true,
             emptyMsg: "TASKS_PANEL_EMPTY_DISPLAY".translate()
         }
-    ]
+    ],
+
+    initComponent: function () {
+        this.callParent(arguments);
+        this.getSelectionModel().on('selectionchange', this.onSelectChange, this);
+        this.onSelectChange(this.getSelectionModel(), []);
+    },
+
+    onSelectChange: function (selModel, selections) {
+        this.down('button[action=delete]').setDisabled(selections.length === 0);
+        this.down('button[action=edit]').setDisabled(selections.length != 1);
+    }
 
 });

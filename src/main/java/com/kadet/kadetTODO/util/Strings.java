@@ -52,4 +52,6 @@ public class Strings {
     public static final String UPDATE_SUCCESS_END = " was successfully updated!";
     public static final String TASK_UPDATE_SUCCESS = TASK + UPDATE_SUCCESS_END;
 
+    public static final String DELETE_SUCCESS_END = " were successfully deleted!";
+    public static final String TASK_DELETE_SUCCESS = TASK + DELETE_SUCCESS_END;
 }

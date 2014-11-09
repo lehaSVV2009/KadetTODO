@@ -17,11 +17,11 @@ public interface TaskRepository extends JpaRepository<Task, Long>,
         QueryDslPredicateExecutor<Task> {
 
     @Query("select t from task t where t.project.id = :projectId")
-    Page<Task> findByProjectId (@Param("projectId") Long projectId, Pageable pageable);
+    Page<Task> findByProjectId(@Param("projectId") Long projectId, Pageable pageable);
 
     @Query("select t from task t where t.project.id = :projectId")
-    List<Task> findByProjectId (@Param("projectId") Long projectId);
+    List<Task> findByProjectId(@Param("projectId") Long projectId);
 
-    Task findByName (String name);
+    Task findByTitle(String title);
 
 }
