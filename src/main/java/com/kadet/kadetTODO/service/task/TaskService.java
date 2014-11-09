@@ -100,6 +100,7 @@ public class TaskService {
             return null;
         }
         // TODO: if (..) set project
+        existing.setId(taskUI.getId());
         existing.setTitle(taskUI.getTitle());
         existing.setDescription(taskUI.getDescription());
         existing.setLevel(taskUI.getLevel());

@@ -71,8 +71,9 @@ public class TaskController {
 
     @RequestMapping (value = "/tasks/{taskId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Map<String, ? extends Object> update (@PathVariable("taskId") Long taskId, TaskUI taskUI) throws Exception {
+    public Map<String, ? extends Object> update (TaskUI taskUI, @PathVariable("taskId") Long taskId) throws Exception {
         try {
+            taskUI.setId(taskId);
             TaskUI task = taskService.update(taskUI);
             return (task != null)
                     ? extJS.mapOK(task, Strings.TASK_UPDATE_SUCCESS)

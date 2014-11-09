@@ -6,7 +6,7 @@ Ext.define('kadetTODO.controller.TasksController', {
     extend: 'Ext.app.Controller',
 
     stores: [],
-    models: [],
+    models: ['Task'],
     views: [
         'common.Header',
         'panel.TasksPanel',
@@ -119,7 +119,6 @@ Ext.define('kadetTODO.controller.TasksController', {
         var me = this,
             newTaskForm = this.getNewTaskForm();
         newTaskForm.getForm().submit({
-            method: 'PUT',
             success: function (form, action) {
                 console.log(action);
                 Ext.Msg.alert('SUCCESS'.translate(), action.result.message);
@@ -140,7 +139,39 @@ Ext.define('kadetTODO.controller.TasksController', {
         debugger;
         var me = this,
             editTaskForm = this.getEditTaskForm();
-        editTaskForm.getForm().updateRecord();
+        editTaskForm.getForm().submit({
+            method: "PUT",
+            url: ('api/tasks/' + editTaskForm.getForm().getValues().id),
+            success: function (form, action) {
+                console.log(action);
+                Ext.Msg.alert('SUCCESS'.translate(), action.result.message);
+                me.redirectTo("myPage/myTasks");
+            },
+            failure: function (form, action) {
+                Ext.Msg.alert('ERROR'.translate(), action.result.message);
+            }
+        });
+        /*debugger;
+         var me = this,
+         editTaskForm = this.getEditTaskForm(),
+         form = editTaskForm.getForm();
+         var values = form.getValues();
+         var task = Ext.create('kadetTODO.model.Task', {
+         id : values.id
+         });
+         task.set('title', values.title);
+         task.set('description', values.description);
+         task.set('level', values.level);
+         task.set('projectName', values.projectName);
+         task.save({
+         success: function (response) {
+         Ext.Msg.alert('SUCCESS'.translate(), Ext.decode(response.responseText).message);
+         me.redirectTo("myPage/myTasks");
+         },
+         failure: function (response) {
+         Ext.Msg.alert('ERROR'.translate(), Ext.decode(response.responseText).message);
+         }
+         });*/
     },
 
     cancelUpdateTask: function () {
