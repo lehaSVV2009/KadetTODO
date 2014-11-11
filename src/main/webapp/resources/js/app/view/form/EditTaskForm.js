@@ -1,5 +1,7 @@
 /**
- * Created by Kadet on 09.11.2014.
+ *  Form is used for editing tasks
+ *
+ * Created by Alex Soroka on 09.11.2014.
  */
 Ext.define('kadetTODO.view.form.EditTaskForm', {
 

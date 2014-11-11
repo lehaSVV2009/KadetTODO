@@ -1,5 +1,7 @@
 /**
- * Created by AlexSoroka on 11/4/2014.
+ *  Task entity
+ *
+ * Created by Alex Soroka on 11/4/2014.
  */
 Ext.define('kadetTODO.model.Task', {
 
@@ -20,17 +22,12 @@ Ext.define('kadetTODO.model.Task', {
             name: 'description',
             type: 'string',
             mapping: 'description'
-        },
-        {
-            name: 'projectName',
-            type: 'string',
-            mapping: 'projectName'
-        },
+        }/*,
         {
             name: 'level',
             type: 'string',
             mapping: 'level'
-        }
+        }*/
     ],
 
     proxy: {

@@ -1,5 +1,31 @@
 /**
- * Created by AlexSoroka on 11/1/2014.
+ * Load tree by url
+ *
+ * Has the following structure:
+ * Root {
+ *    text : 'text',
+ *    children: [
+ *      {
+ *          text: 'child1',
+ *          id: 'id1',
+ *          leaf: false,
+ *          children: [
+ *              {
+ *                  text: 'child11',
+ *                  id: 'id3',
+ *                  leaf: true
+ *              }
+ *          ]
+ *      },
+ *      {
+ *          text: 'child2',
+ *          id: 'id2',
+ *          leaf: true
+ *      }
+ *    ]
+ * }
+ *
+ * Created by Alex Soroka on 11/1/2014.
  */
 Ext.define('kadetTODO.store.NavigationTreeStore', {
 
@@ -14,67 +40,6 @@ Ext.define('kadetTODO.store.NavigationTreeStore', {
     root: {
         expanded: true,
         id: 'navigationTree'
-        /*
-         children: [
-         {
-         text: 'Projects',
-         children: [
-         {
-         text: 'AAA',
-         children: [
-         {
-         text: 'Tasks',
-         children: [
-         {
-         text: '123',
-         leaf: true
-         }
-         ]
-         },
-         {
-         text: 'Employees',
-         children: [
-         {
-         text: 'Alex',
-         leaf: true
-         }
-         ]
-         }
-         ]
-         },
-         {
-         text: 'BBB',
-         children: [
-         {
-         text: 'Tasks',
-         children: [
-         {
-         text: 'xxx',
-         leaf: true
-         }
-         ]
-         },
-         {
-         text: 'Employees',
-         children: [
-         {
-         text: 'Sergey',
-         leaf: true
-         },
-         {
-         text: 'Alex',
-         leaf: true
-         }
-         ]
-         }
-         ]
-         }
-
-
-         ]
-         }
-         ]
-         */
     },
 
     folderSort: true,

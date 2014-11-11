@@ -6,6 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Date: 11.11.2014
+ * Time: 10:37
+ *
+ * @author Alex Soroka
+ */
 @Service
 public class ExtJSResponse<T> {
 

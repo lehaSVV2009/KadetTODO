@@ -1,5 +1,8 @@
 /**
- * Created by AlexSoroka on 11/1/2014.
+ * Controller of main Tree Panel
+ * Parses text of clicked record in the tree and redirect to definite url
+ *
+ * Created by Alex Soroka on 11/1/2014.
  */
 Ext.define('kadetTODO.controller.NavigationController', {
 
@@ -46,12 +49,17 @@ Ext.define('kadetTODO.controller.NavigationController', {
         navigationPanel.collapseAll();
     },
 
-
-    treeItemClick: function (view, record, item, index, e, eOpts) {
+    /**
+     *  On tree item click
+     * @param view      tree
+     * @param record    clicked record (has item text)
+     */
+    treeItemClick: function (view, record) {
 
         this.parsePath(record);
 
     },
+
 
     /**
      *  Parses path to clicked item and make redirect to appropriate url
@@ -65,14 +73,13 @@ Ext.define('kadetTODO.controller.NavigationController', {
             this.parseRootEntities(record);
         } else if (recordDepth == 2) {
             this.parseSecondLevel(record);
-        } else if (recordDepth == 3) {
-            this.parseThirdLevel(record);
         }
 
     },
 
     /**
      *  Parse first level items
+     *  ( MyPage, Tasks )
      *
      * @param record
      */
@@ -80,9 +87,10 @@ Ext.define('kadetTODO.controller.NavigationController', {
         if (this.isMyPage(record)) {
             this.redirectTo(
                 this.createMyPageUrl());
-        } else if (this.isProjects(record)) {
+        } else if(this.isTasks(record)) {
             this.redirectTo(
-                this.createProjectsUrl());
+                this.createTasksUrl()
+            );
         }
     },
 
@@ -90,24 +98,29 @@ Ext.define('kadetTODO.controller.NavigationController', {
         return record.get('text') == ('TREE_MY_PAGE'.translate());
     },
 
-    isProjects: function (record) {
-        return record.get('text') == ('TREE_PROJECTS'.translate());
+    isTasks: function (record) {
+        return record.get('text') == ('TREE_TASKS'.translate());
     },
+
+
 
     /**
      *  Parse second level items
+     *  ( My Tasks, New Task )
      *
-     * @param record
      */
     parseSecondLevel: function (record) {
         if (this.isMyTasks(record)) {
             this.redirectTo(
-                this.createMyTasksUrl());
-        } else if (this.isProject(record)) {
+                this.createMyTasksUrl()
+            );
+        } else if (this.isNewTask(record)) {
             this.redirectTo(
-                this.createProjectUrl(record.get("entityId")));
+                this.createNewTaskUrl()
+            );
         }
     },
+
 
     isMyTasks: function (record) {
         return (record.get('text') == ('TREE_MY_TASKS'.translate()))
@@ -115,52 +128,17 @@ Ext.define('kadetTODO.controller.NavigationController', {
             && this.isMyPage(record.getRefOwner());
     },
 
-    isProject: function (record) {
-        return (record.getRefOwner().getDepth() == 1)
-            && this.isProjects(record.getRefOwner());
+    isNewTask: function (record) {
+        return (record.get('text') == ('TREE_NEW_TASK'.translate()))
+            && (record.getRefOwner().getDepth() == 1)
+            && this.isTasks(record.getRefOwner());
     },
+
 
 
     /**
-     *  Parse third level items
-     *
-     * @param record
+     *  URL Building methods
      */
-    parseThirdLevel: function (record) {
-        if (this.isProjectTasks(record)) {
-            this.redirectTo(
-                this.createProjectTasksUrl(record.getRefOwner().get('entityId')));
-        } else if (this.isProjectEmployees(record)) {
-            this.redirectTo(
-                this.createProjectEmployeesUrl(record.getRefOwner().get('entityId')));
-        }
-    },
-
-    isProjectTasks: function (record) {
-        return (record.get('text') == ('TREE_TASKS'.translate()))
-            && this.isProject(record.getRefOwner());
-    },
-
-    isProjectEmployees: function (record) {
-        return (record.get('text') == ('TREE_EMPLOYEES'.translate()))
-            && this.isProject(record.getRefOwner());
-    },
-
-    createProjectsUrl: function () {
-        return 'projects';
-    },
-
-    createProjectUrl: function (projectId) {
-        return this.createProjectsUrl() + '/' + projectId;
-    },
-
-    createProjectTasksUrl: function (projectId) {
-        return this.createProjectUrl(projectId) + '/tasks';
-    },
-
-    createProjectEmployeesUrl: function (projectId) {
-        return this.createProjectUrl(projectId) + '/employees';
-    },
 
     createMyPageUrl: function () {
         return 'myPage';
@@ -168,6 +146,14 @@ Ext.define('kadetTODO.controller.NavigationController', {
 
     createMyTasksUrl: function () {
         return this.createMyPageUrl() + "/myTasks";
+    },
+
+    createTasksUrl: function () {
+        return 'tasks';
+    },
+
+    createNewTaskUrl: function () {
+        return this.createTasksUrl() + "/newTask";
     }
 
 });

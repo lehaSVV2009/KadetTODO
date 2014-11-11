@@ -1,8 +1,7 @@
 /**
- * Created by AlexSoroka on 11/8/2014.
- */
-/**
- * Created by AlexSoroka on 11/4/2014.
+ *  Panel contains list of tasks and buttons (add, edit, delete)
+ *
+ * Created by Alex Soroka on 11/4/2014.
  */
 Ext.define('kadetTODO.view.panel.TasksPanel', {
 

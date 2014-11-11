@@ -1,5 +1,6 @@
 /**
- * Created by AlexSoroka on 11/4/2014.
+ *
+ * Created by Alex Soroka on 11/4/2014.
  */
 Ext.define("kadetTODO.store.TaskStore", {
 

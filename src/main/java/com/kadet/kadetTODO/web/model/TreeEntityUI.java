@@ -7,7 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by AlexSoroka on 11/4/2014.
+ * Date: 11.11.2014
+ * Time: 10:37
+ *
+ *  View model for viewing on the ExtJS Tree component
+ *
+ * @author Alex Soroka
  */
 @JsonSubTypes({@JsonSubTypes.Type(TreeEntityUI.class)})
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.ANY)

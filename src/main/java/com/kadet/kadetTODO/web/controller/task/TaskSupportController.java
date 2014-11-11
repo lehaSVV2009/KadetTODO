@@ -1,24 +1,17 @@
 package com.kadet.kadetTODO.web.controller.task;
 
 import com.kadet.kadetTODO.service.task.TaskService;
-import com.kadet.kadetTODO.util.mapper.LevelMapper;
-import com.kadet.kadetTODO.web.model.LevelUI;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by Kadet on 09.11.2014.
+ * Date: 11.11.2014
+ * Time: 10:37
+ *
+ * @author Alex Soroka
  */
-
 @Controller
 @RequestMapping("/api")
 public class TaskSupportController {
@@ -28,7 +21,7 @@ public class TaskSupportController {
     @Autowired
     private TaskService taskService;
 
-    @Autowired
+    /*@Autowired
     private LevelMapper levelMapper;
 
 
@@ -42,6 +35,6 @@ public class TaskSupportController {
             return new ArrayList<LevelUI>();
         }
     }
-
+*/
 
 }

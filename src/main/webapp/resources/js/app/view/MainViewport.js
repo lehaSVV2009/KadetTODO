@@ -1,5 +1,11 @@
 /**
- * Created by AlexSoroka on 11/1/2014.
+ *  Window contains Navigation Panel (tree),
+ *                  View Panel (simple panel where you can show/create/edit something),
+ *                  Header (panel with application image, home, logout and any other buttons)
+ *                  Footer (panel with creator information)
+ *
+ *
+ * Created by Alex Soroka on 11/1/2014.
  */
 Ext.define('kadetTODO.view.MainViewport', {
 

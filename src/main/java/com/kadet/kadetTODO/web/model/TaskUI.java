@@ -5,18 +5,28 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import java.util.Date;
 
 /**
- * Created by AlexSoroka on 11/8/2014.
+ * Date: 11.11.2014
+ * Time: 10:37
+ *
+ *  Task for viewing in ExtJS
+ *
+ * @author Alex Soroka
  */
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.ANY)
 public class TaskUI {
 
-    private String projectName;
     private Long id;
-    private String name;
+
     private String title;
     private String description;
-    private String level;
     private Date openedDate;
+    private Date modifiedDate;
+    private Date resolvedDate;
+    private Date closedDate;
+    private Date reopenedDate;
+
+    private String level;
+    private String status;
 
     public Long getId () {
         return id;
@@ -26,19 +36,11 @@ public class TaskUI {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTitle() {
+    public String getTitle () {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle (String title) {
         this.title = title;
     }
 
@@ -50,27 +52,59 @@ public class TaskUI {
         this.description = description;
     }
 
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public Date getOpenedDate() {
+    public Date getOpenedDate () {
         return openedDate;
     }
 
-    public void setOpenedDate(Date openedDate) {
+    public void setOpenedDate (Date openedDate) {
         this.openedDate = openedDate;
+    }
+
+    public Date getModifiedDate () {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate (Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public Date getResolvedDate () {
+        return resolvedDate;
+    }
+
+    public void setResolvedDate (Date resolvedDate) {
+        this.resolvedDate = resolvedDate;
+    }
+
+    public Date getClosedDate () {
+        return closedDate;
+    }
+
+    public void setClosedDate (Date closedDate) {
+        this.closedDate = closedDate;
+    }
+
+    public Date getReopenedDate () {
+        return reopenedDate;
+    }
+
+    public void setReopenedDate (Date reopenedDate) {
+        this.reopenedDate = reopenedDate;
+    }
+
+    public String getLevel () {
+        return level;
+    }
+
+    public void setLevel (String level) {
+        this.level = level;
+    }
+
+    public String getStatus () {
+        return status;
+    }
+
+    public void setStatus (String status) {
+        this.status = status;
     }
 }

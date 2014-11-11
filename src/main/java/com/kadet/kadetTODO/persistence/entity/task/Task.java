@@ -1,53 +1,30 @@
 package com.kadet.kadetTODO.persistence.entity.task;
 
-import com.kadet.kadetTODO.persistence.entity.project.Project;
-
-import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by AlexSoroka on 11/8/2014.
+ * Date: 11.11.2014
+ * Time: 10:37
+ *
+ *  Main entity in application
+ *
+ * @author Alex Soroka
  */
-@Entity(name = "task")
 public class Task {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
     private String description;
 
-    @Temporal(TemporalType.DATE)
     private Date openedDate;
-
-    @Temporal(TemporalType.DATE)
     private Date modifiedDate;
-
-    @Temporal(TemporalType.DATE)
     private Date resolvedDate;
-
-    @Temporal(TemporalType.DATE)
     private Date closedDate;
-
-    @Temporal(TemporalType.DATE)
     private Date reopenedDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date removedDate;
-
-    //TODO: to enum
-    private Integer status;
-
-    private String level;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "projectId")
-    private Project project;
-
-    public static enum COLUMNS {
-        TITLE, DESCRIPTION, OPENEDDATE
-    }
+    private Level level = Level.TRIVIAL;
+    private Status status = Status.OPENED;
 
     public Long getId () {
         return id;
@@ -113,36 +90,19 @@ public class Task {
         this.reopenedDate = reopenedDate;
     }
 
-    public Date getRemovedDate () {
-        return removedDate;
-    }
-
-    public void setRemovedDate (Date removedDate) {
-        this.removedDate = removedDate;
-    }
-
-    public String getLevel() {
+    public Level getLevel () {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel (Level level) {
         this.level = level;
     }
 
-    public Integer getStatus () {
+    public Status getStatus () {
         return status;
     }
 
-    public void setStatus (Integer status) {
+    public void setStatus (Status status) {
         this.status = status;
-    }
-
-
-    public Project getProject () {
-        return project;
-    }
-
-    public void setProject (Project project) {
-        this.project = project;
     }
 }

@@ -1,25 +1,23 @@
 /**
- * Created by AlexSoroka on 11/5/2014.
- */
-/**
- * Created by AlexSoroka on 11/1/2014.
+ *  Router
+ *  Listens to all redirects
+ *
+ * Created by Alex Soroka on 11/1/2014.
  */
 Ext.define('kadetTODO.controller.Router', {
 
     extend: 'Ext.app.Controller',
 
-    stores: ['NavigationTreeStore', 'ProjectStore', 'EmployeeStore'],
-    models: ['Project', 'Employee', 'Task'],
+    stores: ['NavigationTreeStore'],
+    models: ['Task'],
     views: [
         'NavigationPanel',
         'ViewPanel',
-        'panel.ProjectsPanel',
-        'panel.EmployeesPanel',
         'panel.TasksPanel',
-        'panel.ProjectPanel',
         'form.NewTaskForm',
         'form.EditTaskForm'
     ],
+
     refs: [
         {
             ref: 'navigationPanel',
@@ -31,26 +29,18 @@ Ext.define('kadetTODO.controller.Router', {
         }
     ],
 
+    /**
+     * All redirects
+     */
     routes: {
 
-        'projects': 'onProjects',
-        'projects/:id': 'onProject',
+        'myPage': 'onMyPage',
+        'myTasks': 'onMyTasks',
 
-        'projects/:id/tasks': 'onTasks',
-
+        'tasks': 'onTasks',
         'tasks/:taskId': 'onTask',
         'tasks/newTask': 'onNewTask',
-        'tasks/:taskId/edit': 'onEditTask',
-
-        'projects/:id/employees': 'onProjectEmployees',
-
-
-        'employees': 'onEmployees',
-        'employees/:id': 'onEmployee',
-
-
-        'myPage': 'onMyPage',
-        'myTasks': 'onMyTasks'
+        'tasks/:taskId/edit': 'onEditTask'
 
     },
 
@@ -58,92 +48,37 @@ Ext.define('kadetTODO.controller.Router', {
     },
 
     /**
-     *  Show list of all projects
+     *  Show Page with user information
      */
-    onProjects: function () {
-        var viewPanel = this.getViewPanel();
-        var newPanel = Ext.create('Ext.panel.Panel', {
-            xtype: 'gridPanel',
-            items: [
-                {
-                    xtype: 'projectsPanel'
-                }
-            ]
-        });
-        viewPanel.updateByItem(newPanel);
+    onMyPage: function () {
+        console.log('onMyPage');
     },
 
     /**
-     *  Show information about project
-     *
-     * @param id    Project id
+     *  Show Page with user tasks
      */
-    onProject: function (id) {
-        var me = this;
-        var Project = Ext.create('kadetTODO.model.Project', {
-            id: id
-        });
-        Project.load({
-            success: function (project) {
-                if (project) {
-                    debugger;
-                    var viewPanel = me.getViewPanel();
-                    var projectForm = Ext.create('kadetTODO.view.panel.ProjectPanel', {
-                        title: project.data.data.name
-                    });
-                    projectForm.getForm().setValues({
-                        name: project.data.data.name,
-                        description: project.data.data.description,
-                        createdDate: project.data.data.createdDate
-                    });
-                    var newPanel = Ext.create('Ext.panel.Panel', {
-                        xtype: 'gridPanel',
-                        items: [projectForm]
-                    });
-                    viewPanel.updateByItem(newPanel);
-                }
-            },
-            failure: function (proxy, response, operation) {
-                debugger;
-                me.showRemoteErrorBox(response.responseText);
-            }
-        });
+    onMyTasks: function () {
+
     },
 
-
     /**
-     *  Show all tasks in projects
-     *
-     * @param id    Project id
+     *  Show list of all tasks
      */
-    onTasks: function (id) {
-
-        var tasksStore = Ext.create('kadetTODO.store.TaskStore');
-        tasksStore.getProxy().url = 'api/projects/' + id + '/tasks';
-        tasksStore.load();
-        var viewPanel = this.getViewPanel();
-        var newPanel = Ext.create('Ext.panel.Panel', {
-            xtype: 'gridPanel',
-            items: [
-                {
-                    xtype: 'tasksPanel',
-                    store: tasksStore
-                }
-            ]
-        });
-        viewPanel.updateByItem(newPanel);
+    onTasks: function () {
 
     },
 
 
     /**
-     *
-     * @param taskId    Task id
+     *  Show information about the task
      */
     onTask: function (taskId) {
     },
 
 
+    /**
+     *  Show panel for creating new task
+     */
     onNewTask: function () {
         var viewPanel = this.getViewPanel();
         var newPanel = Ext.create('Ext.panel.Panel', {
@@ -154,10 +89,13 @@ Ext.define('kadetTODO.controller.Router', {
                 }
             ]
         });
-        viewPanel.updateByItem(newPanel);
+        viewPanel.updatePanel(newPanel);
     },
 
 
+    /**
+     *  Show panel for editing task with id = @id
+     */
     onEditTask: function (id) {
         var viewPanel = this.getViewPanel();
         var task = Ext.create('kadetTODO.model.Task',
@@ -180,62 +118,10 @@ Ext.define('kadetTODO.controller.Router', {
                         xtype: 'gridPanel',
                         items: [editForm]
                     });
-                    viewPanel.updateByItem(newPanel);
+                    viewPanel.updatePanel(newPanel);
                 }
             }
         });
-
-    },
-
-    /**
-     *
-     * @param id    Project id
-     */
-    onProjectEmployees: function (id) {
-        var employeesStore = Ext.create('kadetTODO.store.EmployeeStore');
-        employeesStore.getProxy().url = 'api/projects/' + id + '/employees';
-        employeesStore.load();
-        var viewPanel = this.getViewPanel();
-        var newPanel = Ext.create('Ext.panel.Panel', {
-            xtype: 'gridPanel',
-            items: [
-                {
-                    xtype: 'employeesPanel',
-                    store: employeesStore
-                }
-            ]
-        });
-        viewPanel.updateByItem(newPanel);
-    },
-
-
-    onEmployees: function () {
-        var viewPanel = this.getViewPanel();
-        var newPanel = Ext.create('Ext.panel.Panel', {
-            xtype: 'gridPanel',
-            items: [
-                {
-                    xtype: 'employeesPanel'
-                }
-            ]
-        });
-        viewPanel.updateByItem(newPanel);
-    },
-
-    /**
-     *
-     * @param id    Employee id
-     */
-    onEmployee: function (id) {
-
-    },
-
-
-    onMyPage: function () {
-        console.log('onMyPage');
-    },
-
-    onMyTasks: function () {
 
     },
 

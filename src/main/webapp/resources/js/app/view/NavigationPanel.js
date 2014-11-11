@@ -1,5 +1,7 @@
 /**
- * Created by AlexSoroka on 11/1/2014.
+ *  Simple tree. Used for navigation
+ *
+ * Created by Alex Soroka on 11/1/2014.
  */
 Ext.define('kadetTODO.view.NavigationPanel', {
     extend: 'Ext.tree.Panel',

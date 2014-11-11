@@ -15,7 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by AlexSoroka on 11/9/2014.
+ * Date: 11.11.2014
+ * Time: 10:37
+ *
+ *  Simple REST API for manipulating with tasks
+ *
+ * @author Alex Soroka
  */
 @Controller
 @RequestMapping ("/api")
@@ -48,10 +53,16 @@ public class TaskController {
     }
 
 
+
+
     /**
      * READ
      */
 
+
+    /**
+     *  Read one
+     */
     @RequestMapping (value = "/tasks/{taskId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, ? extends Object> read (@PathVariable ("taskId") Long taskId) {
@@ -63,6 +74,24 @@ public class TaskController {
             return extJS.mapError(Strings.TASK_RETRIEVE_ERROR);
         }
     }
+
+
+    /**
+     *  Read all
+     */
+    @RequestMapping (value = "/tasks", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, ? extends Object> readAll () {
+        try {
+            List<TaskUI> taskUIs = taskService.findAll();
+            return extJS.mapOK(taskUIs);
+        } catch (Exception e) {
+            logger.error(e);
+            return extJS.mapError(Strings.TASKS_RETRIEVE_ERROR);
+        }
+    }
+
+
 
 
     /**
@@ -85,10 +114,16 @@ public class TaskController {
     }
 
 
+
+
     /**
      * DELETE
      */
 
+
+    /**
+     *  Delete one
+     */
     @RequestMapping (value = "/tasks/{taskId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, ? extends Object> delete (@PathVariable("taskId") Long id) throws Exception {
@@ -103,6 +138,12 @@ public class TaskController {
     }
 
 
+    /**
+     *
+     *  Delete many tasks
+     *
+     * @param taskIds   String contains list of task ids. Format example:  '[1, 2, 3]'
+     */
     @RequestMapping (value = "/tasks/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, ? extends Object> deleteTasks (@RequestParam(value = "tasks") String taskIds) throws Exception {

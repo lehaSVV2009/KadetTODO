@@ -1,27 +1,29 @@
 package com.kadet.kadetTODO.persistence.repo;
 
 import com.kadet.kadetTODO.persistence.entity.task.Task;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
-import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * Created by AlexSoroka on 11/8/2014.
+ * Date: 11.11.2014
+ * Time: 10:37
+ *
+ *
+ * @author Alex Soroka
  */
-public interface TaskRepository extends JpaRepository<Task, Long>,
-        QueryDslPredicateExecutor<Task> {
+public interface TaskRepository {
 
-    @Query("select t from task t where t.project.id = :projectId")
-    Page<Task> findByProjectId(@Param("projectId") Long projectId, Pageable pageable);
+    public List<Task> findAll ();
 
-    @Query("select t from task t where t.project.id = :projectId")
-    List<Task> findByProjectId(@Param("projectId") Long projectId);
+    public Task findOne (Long id);
 
-    Task findByTitle(String title);
+    public Task create (Task newTask);
+
+    public Task save (Task task);
+
+    public void delete (Task task);
+
+    public Task findByTitle (String title);
 
 }

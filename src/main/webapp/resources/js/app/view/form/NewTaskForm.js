@@ -1,5 +1,7 @@
 /**
- * Created by AlexSoroka on 11/8/2014.
+ * Form is used for creating new task
+ *
+ * Created by Alex Soroka on 11/8/2014.
  */
 Ext.define('kadetTODO.view.form.NewTaskForm', {
 

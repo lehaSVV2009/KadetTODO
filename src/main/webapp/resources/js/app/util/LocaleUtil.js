@@ -1,5 +1,7 @@
 /**
- * Created by AlexSoroka on 11/4/2014.
+ *  Util class for loading properties of wanted language and setting these properties to 'String' method 'translate'
+ *
+ * Created by Alex Soroka on 11/4/2014.
  */
 Ext.define('kadetTODO.util.LocaleUtil', {
     signleton: true,

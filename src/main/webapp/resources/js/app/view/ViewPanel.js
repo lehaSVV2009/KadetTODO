@@ -1,5 +1,8 @@
 /**
- * Created by AlexSoroka on 11/1/2014.
+ *  Panel is for viewing, editing, creating something
+ *  Main panel for working
+ *
+ * Created by Alex Soroka on 11/1/2014.
  */
 Ext.define('kadetTODO.view.ViewPanel', {
     extend: 'Ext.panel.Panel',
@@ -12,9 +15,13 @@ Ext.define('kadetTODO.view.ViewPanel', {
         }
     ],
 
-    updateByItem: function (newItem) {
+    /**
+     *  Inserts newPanel instead previous. It fills ViewPanel
+     * @param newPanel
+     */
+    updatePanel: function (newPanel) {
         this.removeAll(true, true);
-        this.add(newItem);
+        this.add(newPanel);
     }
 
 });

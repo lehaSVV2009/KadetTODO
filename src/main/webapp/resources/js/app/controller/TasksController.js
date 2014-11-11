@@ -1,5 +1,11 @@
 /**
- * Created by AlexSoroka on 09.11.2014.
+ *  Controls actions with task (create, update, delete)
+ *          from tasks panel (from list of tasks),
+ *          from new task panel,
+ *          from edit task panel,
+ *          from header buttons
+ *
+ * Created by Alex Soroka on 09.11.2014.
  */
 Ext.define('kadetTODO.controller.TasksController', {
 
@@ -66,54 +72,10 @@ Ext.define('kadetTODO.controller.TasksController', {
         });
     },
 
-    toNewTask: function () {
-        this.redirectTo('tasks/newTask');
-    },
 
-    toEditTask: function () {
-        var tasksPanel = this.getTasksPanel();
-        var selections = tasksPanel.getSelectionModel().getSelection();
-        if (selections.length == 1) {
-            var taskId = selections[0].get('id');
-            this.redirectTo('tasks/' + taskId + '/edit');
-        }
-    },
-
-    deleteTasks: function () {
-        var tasksPanel = this.getTasksPanel();
-        var selections = tasksPanel.getSelectionModel().getSelection();
-        if (selections.length > 0) {
-            var tasks = [];
-            Ext.each(selections, function (selection) {
-                tasks.push(selection.get('id'));
-            });
-        }
-        Ext.MessageBox.show({
-            title: 'MESSAGE_BOX_DELETE_TASKS'.translate(),
-            buttons: Ext.MessageBox.YESNO,
-            msg: 'MESSAGE_BOX_TEXT'.translate(),
-            fn: function (btn) {
-                if (btn == 'yes') {
-                    Ext.Ajax.request(
-                        {
-                            url: 'api/tasks/delete',
-                            method: 'POST',
-                            params: {
-                                'tasks': Ext.JSON.encode(tasks)
-                            },
-                            success: function (response) {
-                                Ext.Msg.alert('SUCCESS'.translate(), Ext.decode(response.responseText).message);
-                                tasksPanel.getStore().load();
-                            },
-                            failure: function (response) {
-                                Ext.Msg.alert('ERROR'.translate(), Ext.decode(response.responseText).message);
-                            }
-                        });
-                }
-            }
-        });
-    },
-
+    /**
+     * create Task
+     */
 
     saveTask: function () {
         var me = this,
@@ -134,6 +96,10 @@ Ext.define('kadetTODO.controller.TasksController', {
         this.redirectTo("myPage");
     },
 
+
+    /**
+     *  update task
+     */
 
     updateTask: function () {
         debugger;
@@ -176,6 +142,63 @@ Ext.define('kadetTODO.controller.TasksController', {
 
     cancelUpdateTask: function () {
         this.redirectTo("myPage");
+    },
+
+
+    deleteTasks: function () {
+        var tasksPanel = this.getTasksPanel();
+        var selections = tasksPanel.getSelectionModel().getSelection();
+        if (selections.length > 0) {
+            var tasks = [];
+            Ext.each(selections, function (selection) {
+                tasks.push(selection.get('id'));
+            });
+        }
+        Ext.MessageBox.show({
+            title: 'MESSAGE_BOX_DELETE_TASKS'.translate(),
+            buttons: Ext.MessageBox.YESNO,
+            msg: 'MESSAGE_BOX_TEXT'.translate(),
+            fn: function (btn) {
+                if (btn == 'yes') {
+                    Ext.Ajax.request(
+                        {
+                            url: 'api/tasks/delete',
+                            method: 'POST',
+                            params: {
+                                'tasks': Ext.JSON.encode(tasks)
+                            },
+                            success: function (response) {
+                                Ext.Msg.alert('SUCCESS'.translate(), Ext.decode(response.responseText).message);
+                                tasksPanel.getStore().load();
+                            },
+                            failure: function (response) {
+                                Ext.Msg.alert('ERROR'.translate(), Ext.decode(response.responseText).message);
+                            }
+                        });
+                }
+            }
+        });
+    },
+
+
+    /**
+     * redirect to
+     */
+
+    toNewTask: function () {
+        this.redirectTo('tasks/newTask');
+    },
+
+    toEditTask: function () {
+        var tasksPanel = this.getTasksPanel();
+        var selections = tasksPanel.getSelectionModel().getSelection();
+        if (selections.length == 1) {
+            var taskId = selections[0].get('id');
+            this.redirectTo('tasks/' + taskId + '/edit');
+        }
     }
+
+
+
 
 });

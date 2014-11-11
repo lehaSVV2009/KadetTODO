@@ -1,7 +1,10 @@
 package com.kadet.kadetTODO.util;
 
 /**
- * Created by AlexSoroka on 11/4/2014.
+ * Date: 11.11.2014
+ * Time: 10:37
+ *
+ * @author Alex Soroka
  */
 public class Strings {
 
@@ -9,11 +12,13 @@ public class Strings {
      * Tree
      */
     public static final String ROOT_TEXT = "Root";
-    public static final String PROJECTS_TEXT = "Projects";
-    public static final String EMPLOYEES_TEXT = "Employees";
-    public static final String TASKS_TEXT = "Tasks";
     public static final String MY_PAGE_TEXT = "My Page";
     public static final String MY_TASKS_TEXT = "My Tasks";
+    public static final String TASKS_TEXT = "Tasks";
+    public static final String NEW_TASK_TEXT = "New Task";
+    public static final String PROJECTS_TEXT = "Projects";
+    public static final String EMPLOYEES_TEXT = "Employees";
+    public static final String ALL_TASKS_TEXT = "All Tasks";
 
     public static final String TASK = "Task";
     public static final String TASKS = "Tasks";

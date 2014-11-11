@@ -1,5 +1,7 @@
 /**
- * Created by AlexSoroka on 11/1/2014.
+ * Header panel contains application image and buttons (home, logout)
+ *
+ * Created by Alex Soroka on 11/1/2014.
  */
 Ext.define('kadetTODO.view.common.Header', {
 
