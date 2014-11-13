@@ -85,11 +85,11 @@ Ext.define('kadetTODO.controller.TasksController', {
             newTaskForm = this.getNewTaskForm();
         newTaskForm.getForm().submit({
             success: function (form, response) {
-                me.showSuccessDialog(me.getMessageFromResponse(response));
+                me.showSuccessDialog(me.parseResponse(response.response));
                 me.toHomePage();
             },
             failure: function (form, response) {
-                me.showErrorDialog(me.getMessageFromResponse(response));
+                me.showErrorDialog(me.parseResponse(response.response));
             }
         });
     },
@@ -130,38 +130,32 @@ Ext.define('kadetTODO.controller.TasksController', {
      */
 
     deleteTasks: function () {
-        /*var tasksPanel = this.getTasksPanel();
-         var selections = tasksPanel.getSelectionModel().getSelection();
-         if (selections.length > 0) {
-         var tasks = [];
-         Ext.each(selections, function (selection) {
-         tasks.push(selection.get('id'));
-         });
-         }
-         Ext.MessageBox.show({
-         title: 'MESSAGE_BOX_DELETE_TASKS'.translate(),
-         buttons: Ext.MessageBox.YESNO,
-         msg: 'MESSAGE_BOX_TEXT'.translate(),
-         fn: function (btn) {
-         if (btn == 'yes') {
-         Ext.Ajax.request(
-         {
-         url: 'api/tasks/delete',
-         method: 'POST',
-         params: {
-         'tasks': Ext.JSON.encode(tasks)
-         },
-         success: function (response) {
-         Ext.Msg.alert('SUCCESS'.translate(), Ext.decode(response.responseText).message);
-         tasksPanel.getStore().load();
-         },
-         failure: function (response) {
-         Ext.Msg.alert('ERROR'.translate(), Ext.decode(response.responseText).message);
-         }
-         });
-         }
-         }
-         });*/
+        var me = this,
+            taskTable = this.getTaskTable(),
+            tasks = this.getIdsArrayOfSelectedItemsFromTable(taskTable);
+        if (tasks.length > 0) {
+            this.showAreYouSureDialog(
+                "MESSAGE_BOX_DELETE_TASKS_TITLE".translate(),
+                "MESSAGE_BOX_DELETE_TASKS_TEXT".translate(),
+                function () {
+                    Ext.Ajax.request(
+                        {
+                            url: 'api/tasks/delete',
+                            method: 'POST',
+                            params: {
+                                'tasks': Ext.JSON.encode(tasks)
+                            },
+                            success: function (response) {
+                                me.showSuccessDialog(me.parseResponse(response));
+                                taskTable.getStore().load();
+                            },
+                            failure: function (response) {
+                                me.showErrorDialog(me.parseResponse(response));
+                            }
+                        });
+                }
+            );
+        }
     },
 
 
@@ -174,38 +168,65 @@ Ext.define('kadetTODO.controller.TasksController', {
     },
 
     toViewTask: function () {
-        var taskId = this.getIdFromSelectedItemInTable();
+        var taskId = this.getIdOfSelectedItemFromTable(this.getTaskTable());
         if (taskId) {
             this.redirectTo('tasks/' + taskId);
         }
     },
 
     toEditTask: function () {
-        var taskId = this.getIdFromSelectedItemInTable();
+        var taskId = this.getIdOfSelectedItemFromTable(this.getTaskTable());
         if (taskId) {
             this.redirectTo('tasks/' + taskId + '/edit');
         }
     },
 
-    getIdFromSelectedItemInTable: function () {
-        var taskTable = this.getTaskTable(),
-            selections = taskTable.getSelectionModel().getSelection();
+
+    /**
+     *  Get id from selected record of table
+     */
+    getIdOfSelectedItemFromTable: function (table) {
+        var selections = table.getSelectionModel().getSelection();
         if (selections.length == 1) {
             return selections[0].get('id');
         }
     },
 
+
+    /**
+     *  Get array of id from selected records of table
+     */
+    getIdsArrayOfSelectedItemsFromTable: function (table) {
+        var selections = table.getSelectionModel().getSelection();
+        if (selections.length > 0) {
+            var tasks = [];
+            Ext.each(selections, function (selection) {
+                tasks.push(selection.get('id'));
+            });
+        }
+        return tasks || [];
+    },
+
+
     toHomePage: function () {
         this.redirectTo('myPage');
     },
 
+
     /**
      *  Parse response, get message from there
+     *  @return     string message
      */
-    getMessageFromResponse: function (response) {
-        return Ext.decode(response.response.responseText).message;
+    parseResponse: function (response) {
+        return Ext.decode(response.responseText).message;
     },
 
+
+    /**
+     *
+     *  ERROR DIALOG
+     *
+     */
     showErrorDialog: function (errorMessage) {
         Ext.MessageBox.show({
             title: "ERROR".translate(),
@@ -215,11 +236,38 @@ Ext.define('kadetTODO.controller.TasksController', {
         });
     },
 
+
+    /**
+     *
+     *  SUCCESS DIALOG
+     *
+     */
     showSuccessDialog: function (successMessage) {
         Ext.MessageBox.show({
             title: "SUCCESS".translate(),
             msg: successMessage,
             buttons: Ext.Msg.OK
+        });
+    },
+
+
+    /**
+     *
+     *  YES NO DIALOG
+     *
+     */
+    showAreYouSureDialog: function (title, message, yesFunction, noFunction) {
+        Ext.MessageBox.show({
+            title: title,
+            buttons: Ext.MessageBox.YESNO,
+            msg: message,
+            fn: function (btn) {
+                if (btn == 'yes') {
+                    yesFunction();
+                } else {
+                    noFunction()
+                }
+            }
         });
     }
 

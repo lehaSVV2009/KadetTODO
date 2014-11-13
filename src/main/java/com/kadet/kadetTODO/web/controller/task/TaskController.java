@@ -142,7 +142,7 @@ public class TaskController {
             Task deletedTask = taskService.findById(id);
             taskService.delete(deletedTask);
             TaskTO deletedTaskTO = taskMapper.toUIEntity(deletedTask);
-            return extJS.mapOK(deletedTaskTO);
+            return extJS.mapOK(deletedTaskTO, Strings.TASK_DELETE_SUCCESS);
         } catch (Exception e) {
             logger.error(e);
             return extJS.mapError(Strings.TASK_DELETE_ERROR);
