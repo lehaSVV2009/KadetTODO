@@ -5,3 +5,9 @@ classes
 support
 *.iml
 .git
+
+
+gradle
+out
+gradlew
+gradlew.bat

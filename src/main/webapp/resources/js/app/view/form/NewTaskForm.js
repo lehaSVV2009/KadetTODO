@@ -5,20 +5,9 @@
  */
 Ext.define('kadetTODO.view.form.NewTaskForm', {
 
-    extend: 'Ext.form.Panel',
+    extend: 'kadetTODO.view.form.AbstractForm',
 
     alias: 'widget.newTaskForm',
-    bodyStyle: 'padding:5px',
-    labelWidth: 80,
-    monitorValid: true,
-    border: false,
-    fieldDefaults: {
-        labelAlign: 'left',
-        msgTarget: 'side'
-    },
-    defaults: {
-        anchor: '100%'
-    },
 
     url: 'api/tasks/',
 
@@ -44,16 +33,7 @@ Ext.define('kadetTODO.view.form.NewTaskForm', {
                             name: 'description',
                             anchor: '95%',
                             allowBlank: false
-                        },
-                        {
-                            fieldLabel: 'NEW_TASK_FORM_PROJECT'.translate(),
-                            store: 'ProjectStore',
-                            name: 'projectName',
-                            anchor: '95%',
-                            xtype: 'combobox',
-                            allowBlank: false,
-                            displayField: 'name'
-                        },
+                        }/*,
                         {
                             fieldLabel: 'NEW_TASK_FORM_LEVEL'.translate(),
                             name: 'level',
@@ -70,12 +50,14 @@ Ext.define('kadetTODO.view.form.NewTaskForm', {
                                     url: 'api/levels'
                                 }
                             }
-                        }
+                        }*/
                     ]
                 }
             ]
         }
     ],
+
+
     buttons: [
         {
             text: 'BUTTON_SAVE'.translate(),
@@ -86,7 +68,6 @@ Ext.define('kadetTODO.view.form.NewTaskForm', {
             text: 'BUTTON_CANCEL'.translate(),
             action: 'cancel'
         }
-    ],
-    buttonAlign: 'left'
+    ]
 
 });

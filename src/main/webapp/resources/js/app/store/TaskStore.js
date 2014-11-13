@@ -17,6 +17,7 @@ Ext.define("kadetTODO.store.TaskStore", {
     autoLoad: true,
 
     proxy: {
+        url: 'api/tasks',
         type: 'ajax',
         reader: {
             type: 'json',

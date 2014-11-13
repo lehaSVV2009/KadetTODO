@@ -1,7 +1,8 @@
 package com.kadet.kadetTODO.util.extjs;
 
 import com.kadet.kadetTODO.util.Strings;
-import com.kadet.kadetTODO.web.model.TreeEntityUI;
+import com.kadet.kadetTODO.web.to.TreeEntityTO;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,12 +14,13 @@ import org.springframework.stereotype.Service;
  * @author Alex Soroka
  */
 @Service
+@Scope(value = "prototype")
 public class TreeEntityBuilder {
 
-    private TreeEntityUI root = new TreeEntityUI();
+    private TreeEntityTO root = new TreeEntityTO();
 
-    private TreeEntityUI myPage = new TreeEntityUI();
-    private TreeEntityUI tasks = new TreeEntityUI();
+    private TreeEntityTO myPage = new TreeEntityTO();
+    private TreeEntityTO tasks = new TreeEntityTO();
 
     public TreeEntityBuilder () {
         root.setText(Strings.ROOT_TEXT);
@@ -38,14 +40,26 @@ public class TreeEntityBuilder {
         root.addTreeEntity(tasks);
     }
 
-    private TreeEntityUI createLeaf (String text) {
-        TreeEntityUI treeEntityUI = new TreeEntityUI();
-        treeEntityUI.setText(text);
-        treeEntityUI.setLeaf(true);
-        return treeEntityUI;
+    private TreeEntityTO createLeaf (String text) {
+        TreeEntityTO treeEntityTO = new TreeEntityTO();
+        treeEntityTO.setText(text);
+        treeEntityTO.setLeaf(true);
+        return treeEntityTO;
     }
 
-    public TreeEntityUI getRoot () {
+    public void addTreeEntityToRoot (TreeEntityTO treeEntityTO) {
+        root.addTreeEntity(treeEntityTO);
+    }
+
+    public void addTreeEntityToMyPage (TreeEntityTO treeEntityTO) {
+        myPage.addTreeEntity(treeEntityTO);
+    }
+
+    public void addTreeEntityToTasks (TreeEntityTO treeEntityTO) {
+        myPage.addTreeEntity(treeEntityTO);
+    }
+
+    public TreeEntityTO build () {
         return root;
     }
 

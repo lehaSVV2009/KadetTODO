@@ -22,6 +22,24 @@ Ext.define('kadetTODO.view.ViewPanel', {
     updatePanel: function (newPanel) {
         this.removeAll(true, true);
         this.add(newPanel);
+    },
+
+    updateInnerPanel: function (innerNewPanel) {
+        var newPanel = Ext.create('Ext.panel.Panel', {
+            xtype: 'gridPanel',
+            items: [
+                innerNewPanel
+            ]
+        });
+        this.updatePanel(newPanel);
+    },
+
+    toDefault: function (){
+        this.removeAll(true, true);
+        this.add({
+            xtype: 'gridpanel',
+            title: 'Start View'
+        });
     }
 
 });

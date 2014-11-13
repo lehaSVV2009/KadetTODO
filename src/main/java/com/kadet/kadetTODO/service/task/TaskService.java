@@ -1,11 +1,7 @@
 package com.kadet.kadetTODO.service.task;
 
-import com.kadet.kadetTODO.persistence.entity.task.Level;
-import com.kadet.kadetTODO.persistence.entity.task.Status;
-import com.kadet.kadetTODO.persistence.entity.task.Task;
-import com.kadet.kadetTODO.persistence.repo.TaskRepository;
-import com.kadet.kadetTODO.util.mapper.TaskMapper;
-import com.kadet.kadetTODO.web.model.TaskUI;
+import com.kadet.kadetTODO.domain.entity.task.Task;
+import com.kadet.kadetTODO.domain.repo.TaskRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +11,9 @@ import java.util.List;
 /**
  * Date: 11.11.2014
  * Time: 10:37
- *
- *  Service for tasks manipulating
- *  Used to create, get, update, delete tasks
+ * <p/>
+ * Service for tasks manipulating
+ * Used to create, get, update, delete tasks
  *
  * @author Alex Soroka
  */
@@ -29,9 +25,6 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    @Autowired
-    private TaskMapper taskMapper;
-
 
     /**
      * CREATE
@@ -39,11 +32,10 @@ public class TaskService {
 
 
 //    @Transactional
-    public TaskUI create (TaskUI ui) {
-        Task newTask = taskMapper.toPersistenceEntity(ui);
-        Task saved = taskRepository.save(newTask);
+    public Task create (Task newTask) {
+        Task saved = taskRepository.create(newTask);
         logger.debug("Created Task: " + saved);
-        return taskMapper.toUIEntity(saved);
+        return saved;
     }
 
 
@@ -52,21 +44,21 @@ public class TaskService {
      */
 
 
-    public TaskUI findById (Long taskId) {
+    public Task findById (Long taskId) {
         Task task = taskRepository.findOne(taskId);
-        return taskMapper.toUIEntity(task);
+        return task;
     }
 
-    public TaskUI find (TaskUI taskUI) {
-        return findById(taskUI.getId());
+    public Task find (Task task) {
+        return findById(task.getId());
     }
 
-    public List<TaskUI> findAll () {
-        return taskMapper.toUIEntity(taskRepository.findAll());
+    public List<Task> findAll () {
+        return taskRepository.findAll();
     }
 
-    public TaskUI findByTitle(String title) {
-        return taskMapper.toUIEntity(taskRepository.findByTitle(title));
+    public Task findByTitle (String title) {
+        return taskRepository.findByTitle(title);
     }
 
 
@@ -75,16 +67,24 @@ public class TaskService {
      */
 
 //    @Transactional
-    public TaskUI update (TaskUI taskUI) {
-        Task existing = taskRepository.findOne(taskUI.getId());
+    public Task update (Task task) {
+        Task existing = taskRepository.findOne(task.getId());
         if (existing == null) {
             return null;
         }
-        existing.setTitle(taskUI.getTitle());
-        existing.setDescription(taskUI.getDescription());
+        if (task.getTitle() != null) {
+            existing.setTitle(task.getTitle());
+        }
+        if (task.getDescription() != null) {
+            existing.setDescription(task.getDescription());
+        }
 
-        existing.setLevel(Level.valueOf(taskUI.getLevel()));
-        existing.setStatus(Status.valueOf(taskUI.getStatus()));
+        if (task.getLevel() != null) {
+            existing.setLevel(task.getLevel());
+        }
+        if (task.getStatus() != null) {
+            existing.setStatus(task.getStatus());
+        }
 
         Task saved = null;
 
@@ -94,7 +94,7 @@ public class TaskService {
             logger.error(e);
         }
 
-        return taskMapper.toUIEntity(saved);
+        return saved;
     }
 
 
@@ -103,9 +103,9 @@ public class TaskService {
      */
 
 //    @Transactional
-    public boolean delete (TaskUI taskUI) {
+    public boolean delete (Task task) {
         Task existing = taskRepository
-                .findOne(taskUI.getId());
+                .findOne(task.getId());
         if (existing == null) {
             return false;
         }

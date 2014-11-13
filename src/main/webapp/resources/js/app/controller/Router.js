@@ -8,14 +8,18 @@ Ext.define('kadetTODO.controller.Router', {
 
     extend: 'Ext.app.Controller',
 
-    stores: ['NavigationTreeStore'],
+    stores: [
+        'NavigationTreeStore',
+        'TaskStore'
+    ],
     models: ['Task'],
     views: [
         'NavigationPanel',
         'ViewPanel',
-        'panel.TasksPanel',
+        'table.TaskTable',
         'form.NewTaskForm',
-        'form.EditTaskForm'
+        'form.EditTaskForm',
+        'form.ViewTaskForm'
     ],
 
     refs: [
@@ -39,7 +43,7 @@ Ext.define('kadetTODO.controller.Router', {
 
         'tasks': 'onTasks',
         'tasks/:taskId': 'onTask',
-        'tasks/newTask': 'onNewTask',
+        'newTask': 'onNewTask',
         'tasks/:taskId/edit': 'onEditTask'
 
     },
@@ -51,7 +55,8 @@ Ext.define('kadetTODO.controller.Router', {
      *  Show Page with user information
      */
     onMyPage: function () {
-        console.log('onMyPage');
+        var viewPanel = this.getViewPanel();
+        viewPanel.toDefault();
     },
 
     /**
@@ -65,7 +70,12 @@ Ext.define('kadetTODO.controller.Router', {
      *  Show list of all tasks
      */
     onTasks: function () {
-
+        var viewPanel = this.getViewPanel();
+        var tasksStore = this.getTaskStoreStore();
+        var tasksPanel = Ext.create('kadetTODO.view.table.TaskTable', {
+            store: tasksStore
+        });
+        viewPanel.updateInnerPanel(tasksPanel);
     },
 
 
@@ -73,6 +83,8 @@ Ext.define('kadetTODO.controller.Router', {
      *  Show information about the task
      */
     onTask: function (taskId) {
+        var viewFormPanel = Ext.create('kadetTODO.view.form.ViewTaskForm');
+        this.loadTaskToForm(taskId, viewFormPanel);
     },
 
 
@@ -81,51 +93,45 @@ Ext.define('kadetTODO.controller.Router', {
      */
     onNewTask: function () {
         var viewPanel = this.getViewPanel();
-        var newPanel = Ext.create('Ext.panel.Panel', {
-            xtype: 'gridPanel',
-            items: [
-                {
-                    xtype: 'newTaskForm'
-                }
-            ]
-        });
-        viewPanel.updatePanel(newPanel);
+        viewPanel.updateInnerPanel(
+            Ext.create('kadetTODO.view.form.NewTaskForm')
+        );
     },
 
 
     /**
-     *  Show panel for editing task with id = @id
+     *  Show panel for editing task with taskId = @taskId
      */
-    onEditTask: function (id) {
-        var viewPanel = this.getViewPanel();
-        var task = Ext.create('kadetTODO.model.Task',
-            {id: id}
-        );
-        task.load({
-            success: function (task) {
-                if (task) {
-                    var editForm = Ext.create('kadetTODO.view.form.EditTaskForm');
-
-                    editForm.getForm().setValues({
-                        id: task.data.data.id,
-                        title: task.data.data.title,
-                        description: task.data.data.description,
-                        projectName: task.data.data.projectName,
-                        level: task.data.data.level
-                    });
-
-                    var newPanel = Ext.create('Ext.panel.Panel', {
-                        xtype: 'gridPanel',
-                        items: [editForm]
-                    });
-                    viewPanel.updatePanel(newPanel);
-                }
-            }
-        });
-
+    onEditTask: function (taskId) {
+        var editFormPanel = Ext.create('kadetTODO.view.form.EditTaskForm');
+        this.loadTaskToForm(taskId, editFormPanel);
     },
 
 
+    /**
+     *  Loads task by id and then load it to form as a record
+     */
+    loadTaskToForm: function (taskId, formPanel) {
+        var me = this,
+            viewPanel = this.getViewPanel(),
+            form = formPanel.getForm(),
+            Task = this.getTaskModel();
+        Task.load(taskId, {
+            success: function (task) {
+                form.loadRecord(task);
+                viewPanel.updateInnerPanel(formPanel);
+            },
+            failure: function (response) {
+                me.showRemoteErrorBox(response.data.message);
+                viewPanel.toDefault();
+            }
+        });
+    },
+
+
+    /**
+     *  Show Error dialog
+     */
     showRemoteErrorBox: function (errorMessage) {
         Ext.MessageBox.show({
             title: "MESSAGE_BOX_REMOTE_EXCEPTION_TITLE".translate(),

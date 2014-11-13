@@ -18,6 +18,7 @@ Ext.define('kadetTODO.controller.NavigationController', {
         }
     ],
 
+
     init: function () {
         this.control({
             'todoNavigationPanel button[action=expandAll]': {
@@ -31,6 +32,7 @@ Ext.define('kadetTODO.controller.NavigationController', {
             }
         });
     },
+
 
     /**
      *  Expand all the tree nodes
@@ -48,6 +50,7 @@ Ext.define('kadetTODO.controller.NavigationController', {
         var navigationPanel = this.getNavigationPanel();
         navigationPanel.collapseAll();
     },
+
 
     /**
      *  On tree item click
@@ -76,6 +79,7 @@ Ext.define('kadetTODO.controller.NavigationController', {
         }
 
     },
+
 
     /**
      *  Parse first level items
@@ -153,7 +157,7 @@ Ext.define('kadetTODO.controller.NavigationController', {
     },
 
     createNewTaskUrl: function () {
-        return this.createTasksUrl() + "/newTask";
+        return "newTask";
     }
 
 });

@@ -1,5 +1,7 @@
 package com.kadet.kadetTODO.util.extjs;
 
+import com.kadet.kadetTODO.web.to.TO;
+import com.kadet.kadetTODO.web.to.TaskTO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -14,6 +16,13 @@ import java.util.Map;
  */
 @Service
 public class ExtJSResponse<T> {
+
+    public Map<String, Object> restOk (Map<String, Object> toMap) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        modelMap.put("success", true);
+        modelMap.putAll(toMap);
+        return modelMap;
+    }
 
     public Map<String, Object> mapOK (List<T> items) {
 

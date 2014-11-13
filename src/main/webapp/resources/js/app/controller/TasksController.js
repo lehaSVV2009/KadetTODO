@@ -1,5 +1,5 @@
 /**
- *  Controls actions with task (create, update, delete)
+ *  Controls actions with task (create, view, update, delete)
  *          from tasks panel (from list of tasks),
  *          from new task panel,
  *          from edit task panel,
@@ -15,7 +15,7 @@ Ext.define('kadetTODO.controller.TasksController', {
     models: ['Task'],
     views: [
         'common.Header',
-        'panel.TasksPanel',
+        'table.TaskTable',
         'form.NewTaskForm',
         'form.EditTaskForm'
     ],
@@ -26,8 +26,8 @@ Ext.define('kadetTODO.controller.TasksController', {
             selector: 'newTaskForm'
         },
         {
-            ref: 'tasksPanel',
-            selector: 'tasksPanel'
+            ref: 'taskTable',
+            selector: 'taskTable'
         },
         {
             ref: 'editTaskForm',
@@ -43,13 +43,16 @@ Ext.define('kadetTODO.controller.TasksController', {
             },
 
 
-            'tasksPanel button[action=add]': {
+            'taskTable button[action=add]': {
                 click: this.toNewTask
             },
-            'tasksPanel button[action=edit]': {
+            'taskTable button[action=view]': {
+                click: this.toViewTask
+            },
+            'taskTable button[action=edit]': {
                 click: this.toEditTask
             },
-            'tasksPanel button[action=delete]': {
+            'taskTable button[action=delete]': {
                 click: this.deleteTasks
             },
 
@@ -81,19 +84,18 @@ Ext.define('kadetTODO.controller.TasksController', {
         var me = this,
             newTaskForm = this.getNewTaskForm();
         newTaskForm.getForm().submit({
-            success: function (form, action) {
-                console.log(action);
-                Ext.Msg.alert('SUCCESS'.translate(), action.result.message);
-                me.redirectTo("myPage/myTasks");
+            success: function (form, response) {
+                me.showSuccessDialog(me.getMessageFromResponse(response));
+                me.toHomePage();
             },
-            failure: function (form, action) {
-                Ext.Msg.alert('ERROR'.translate(), action.result.message);
+            failure: function (form, response) {
+                me.showErrorDialog(me.getMessageFromResponse(response));
             }
         });
     },
 
     cancelSaveTask: function () {
-        this.redirectTo("myPage");
+        this.toHomePage();
     },
 
 
@@ -104,80 +106,62 @@ Ext.define('kadetTODO.controller.TasksController', {
     updateTask: function () {
         debugger;
         var me = this,
-            editTaskForm = this.getEditTaskForm();
-        editTaskForm.getForm().submit({
-            method: "PUT",
-            url: ('api/tasks/' + editTaskForm.getForm().getValues().id),
-            success: function (form, action) {
-                console.log(action);
-                Ext.Msg.alert('SUCCESS'.translate(), action.result.message);
-                me.redirectTo("myPage/myTasks");
+            editTaskForm = this.getEditTaskForm(),
+            form = editTaskForm.getForm();
+        form.updateRecord();
+        form.getRecord().save({
+            success: function (response) {
+                me.showSuccessDialog(response.data.message);
+                me.toHomePage();
             },
-            failure: function (form, action) {
-                Ext.Msg.alert('ERROR'.translate(), action.result.message);
+            failure: function (response) {
+                me.showErrorDialog(response.data.message);
             }
         });
-        /*debugger;
-         var me = this,
-         editTaskForm = this.getEditTaskForm(),
-         form = editTaskForm.getForm();
-         var values = form.getValues();
-         var task = Ext.create('kadetTODO.model.Task', {
-         id : values.id
+    },
+
+    cancelUpdateTask: function () {
+        this.toHomePage();
+    },
+
+
+    /**
+     *  delete task
+     */
+
+    deleteTasks: function () {
+        /*var tasksPanel = this.getTasksPanel();
+         var selections = tasksPanel.getSelectionModel().getSelection();
+         if (selections.length > 0) {
+         var tasks = [];
+         Ext.each(selections, function (selection) {
+         tasks.push(selection.get('id'));
          });
-         task.set('title', values.title);
-         task.set('description', values.description);
-         task.set('level', values.level);
-         task.set('projectName', values.projectName);
-         task.save({
+         }
+         Ext.MessageBox.show({
+         title: 'MESSAGE_BOX_DELETE_TASKS'.translate(),
+         buttons: Ext.MessageBox.YESNO,
+         msg: 'MESSAGE_BOX_TEXT'.translate(),
+         fn: function (btn) {
+         if (btn == 'yes') {
+         Ext.Ajax.request(
+         {
+         url: 'api/tasks/delete',
+         method: 'POST',
+         params: {
+         'tasks': Ext.JSON.encode(tasks)
+         },
          success: function (response) {
          Ext.Msg.alert('SUCCESS'.translate(), Ext.decode(response.responseText).message);
-         me.redirectTo("myPage/myTasks");
+         tasksPanel.getStore().load();
          },
          failure: function (response) {
          Ext.Msg.alert('ERROR'.translate(), Ext.decode(response.responseText).message);
          }
+         });
+         }
+         }
          });*/
-    },
-
-    cancelUpdateTask: function () {
-        this.redirectTo("myPage");
-    },
-
-
-    deleteTasks: function () {
-        var tasksPanel = this.getTasksPanel();
-        var selections = tasksPanel.getSelectionModel().getSelection();
-        if (selections.length > 0) {
-            var tasks = [];
-            Ext.each(selections, function (selection) {
-                tasks.push(selection.get('id'));
-            });
-        }
-        Ext.MessageBox.show({
-            title: 'MESSAGE_BOX_DELETE_TASKS'.translate(),
-            buttons: Ext.MessageBox.YESNO,
-            msg: 'MESSAGE_BOX_TEXT'.translate(),
-            fn: function (btn) {
-                if (btn == 'yes') {
-                    Ext.Ajax.request(
-                        {
-                            url: 'api/tasks/delete',
-                            method: 'POST',
-                            params: {
-                                'tasks': Ext.JSON.encode(tasks)
-                            },
-                            success: function (response) {
-                                Ext.Msg.alert('SUCCESS'.translate(), Ext.decode(response.responseText).message);
-                                tasksPanel.getStore().load();
-                            },
-                            failure: function (response) {
-                                Ext.Msg.alert('ERROR'.translate(), Ext.decode(response.responseText).message);
-                            }
-                        });
-                }
-            }
-        });
     },
 
 
@@ -186,18 +170,58 @@ Ext.define('kadetTODO.controller.TasksController', {
      */
 
     toNewTask: function () {
-        this.redirectTo('tasks/newTask');
+        this.redirectTo('newTask');
+    },
+
+    toViewTask: function () {
+        var taskId = this.getIdFromSelectedItemInTable();
+        if (taskId) {
+            this.redirectTo('tasks/' + taskId);
+        }
     },
 
     toEditTask: function () {
-        var tasksPanel = this.getTasksPanel();
-        var selections = tasksPanel.getSelectionModel().getSelection();
-        if (selections.length == 1) {
-            var taskId = selections[0].get('id');
+        var taskId = this.getIdFromSelectedItemInTable();
+        if (taskId) {
             this.redirectTo('tasks/' + taskId + '/edit');
         }
-    }
+    },
 
+    getIdFromSelectedItemInTable: function () {
+        var taskTable = this.getTaskTable(),
+            selections = taskTable.getSelectionModel().getSelection();
+        if (selections.length == 1) {
+            return selections[0].get('id');
+        }
+    },
+
+    toHomePage: function () {
+        this.redirectTo('myPage');
+    },
+
+    /**
+     *  Parse response, get message from there
+     */
+    getMessageFromResponse: function (response) {
+        return Ext.decode(response.response.responseText).message;
+    },
+
+    showErrorDialog: function (errorMessage) {
+        Ext.MessageBox.show({
+            title: "ERROR".translate(),
+            msg: errorMessage,
+            icon: Ext.MessageBox.ERROR,
+            buttons: Ext.Msg.OK
+        });
+    },
+
+    showSuccessDialog: function (successMessage) {
+        Ext.MessageBox.show({
+            title: "SUCCESS".translate(),
+            msg: successMessage,
+            buttons: Ext.Msg.OK
+        });
+    }
 
 
 
