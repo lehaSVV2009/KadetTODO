@@ -22,12 +22,23 @@ Ext.define('kadetTODO.model.Task', {
             name: 'description',
             type: 'string',
             mapping: 'description'
-        }/*,
+        },
         {
             name: 'level',
             type: 'string',
             mapping: 'level'
-        }*/
+        },
+        {
+            name: 'status',
+            type: 'string',
+            mapping: 'status'
+        },
+        {
+            name: 'openedDate',
+            type: 'date',
+            dateFormat: 'Y-m-d H:i:s',
+            mapping: 'openedDate'
+        }
     ],
 
     proxy: {

@@ -33,7 +33,7 @@ Ext.define('kadetTODO.view.form.NewTaskForm', {
                             name: 'description',
                             anchor: '95%',
                             allowBlank: false
-                        }/*,
+                        },
                         {
                             fieldLabel: 'NEW_TASK_FORM_LEVEL'.translate(),
                             name: 'level',
@@ -42,15 +42,8 @@ Ext.define('kadetTODO.view.form.NewTaskForm', {
                             allowBlank: false,
                             displayField: 'text',
                             valueField: 'text',
-                            store: {
-                                autoLoad: true,
-                                fields: ['text'],
-                                proxy: {
-                                    type: 'ajax',
-                                    url: 'api/levels'
-                                }
-                            }
-                        }*/
+                            store: 'Levels'
+                        }
                     ]
                 }
             ]

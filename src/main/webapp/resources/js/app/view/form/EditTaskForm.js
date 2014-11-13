@@ -28,12 +28,24 @@ Ext.define('kadetTODO.view.form.EditTaskForm', {
                         {
                             xtype: 'textfield',
                             fieldLabel: "EDIT_TASK_FORM_TASK_TITLE".translate(),
-                            name: 'title'
+                            name: 'title',
+                            allowBlank: false
                         },
                         {
                             xtype: 'textarea',
                             fieldLabel: "EDIT_TASK_FORM_DESCRIPTION".translate(),
-                            name: 'description'
+                            name: 'description',
+                            allowBlank: false
+                        },
+                        {
+                            xtype: 'combobox',
+                            fieldLabel: 'EDIT_TASK_FORM_LEVEL'.translate(),
+                            name: 'level',
+                            anchor: '95%',
+                            allowBlank: false,
+                            displayField: 'text',
+                            valueField: 'text',
+                            store: 'Levels'
                         }
                     ]
                 }

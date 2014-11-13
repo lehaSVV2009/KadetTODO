@@ -11,7 +11,7 @@ Ext.define('kadetTODO.controller.TasksController', {
 
     extend: 'Ext.app.Controller',
 
-    stores: [],
+    stores: ['TaskStore'],
     models: ['Task'],
     views: [
         'common.Header',
@@ -86,6 +86,7 @@ Ext.define('kadetTODO.controller.TasksController', {
         newTaskForm.getForm().submit({
             success: function (form, response) {
                 me.showSuccessDialog(me.parseResponse(response.response));
+                me.reloadStores();
                 me.toHomePage();
             },
             failure: function (form, response) {
@@ -112,6 +113,7 @@ Ext.define('kadetTODO.controller.TasksController', {
         form.getRecord().save({
             success: function (response) {
                 me.showSuccessDialog(response.data.message);
+                me.reloadStores();
                 me.toHomePage();
             },
             failure: function (response) {
@@ -147,7 +149,7 @@ Ext.define('kadetTODO.controller.TasksController', {
                             },
                             success: function (response) {
                                 me.showSuccessDialog(me.parseResponse(response));
-                                taskTable.getStore().load();
+                                me.reloadStores();
                             },
                             failure: function (response) {
                                 me.showErrorDialog(me.parseResponse(response));
@@ -179,6 +181,14 @@ Ext.define('kadetTODO.controller.TasksController', {
         if (taskId) {
             this.redirectTo('tasks/' + taskId + '/edit');
         }
+    },
+
+
+    /**
+     *  Update all required stores
+     */
+    reloadStores: function () {
+        this.getTaskStoreStore().load();
     },
 
 

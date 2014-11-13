@@ -7,7 +7,9 @@ package com.kadet.kadetTODO.util.mapper;
 import com.kadet.kadetTODO.domain.entity.task.Level;
 import com.kadet.kadetTODO.domain.entity.task.Status;
 import com.kadet.kadetTODO.domain.entity.task.Task;
+import com.kadet.kadetTODO.util.DateUtil;
 import com.kadet.kadetTODO.web.to.TaskTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,8 +20,8 @@ import java.util.Map;
 /**
  * Date: 11.11.2014
  * Time: 10:37
- *
- *  Transforms Task view to to persistence entity and vice versa
+ * <p/>
+ * Transforms Task view to to persistence entity and vice versa
  *
  * @author Alex Soroka
  */
@@ -27,18 +29,23 @@ import java.util.Map;
 @Service
 public class TaskMapper implements Mapper<TaskTO, Task> {
 
+    @Autowired
+    private DateUtil dateUtil;
+
     public Map<String, Object> toMap (final TaskTO taskTO) {
         return new HashMap<String, Object>() {{
             put("id", taskTO.getId());
             put("title", taskTO.getTitle());
             put("description", taskTO.getDescription());
             put("level", taskTO.getLevel());
+            put("status", taskTO.getStatus());
+            put("openedDate", dateUtil.longFromDate(taskTO.getOpenedDate()));
         }};
     }
 
 
     @Override
-    public TaskTO toUIEntity(Task task) {
+    public TaskTO toUIEntity (Task task) {
         TaskTO taskTO = null;
         if (task != null && task.getId() != null) {
             taskTO = new TaskTO();
@@ -59,7 +66,7 @@ public class TaskMapper implements Mapper<TaskTO, Task> {
         return taskTO;
     }
 
-    public List<TaskTO> toUIEntity(List<Task> projects) {
+    public List<TaskTO> toUIEntity (List<Task> projects) {
         List<TaskTO> projectUIs = new ArrayList<TaskTO>();
         for (Task project : projects) {
             projectUIs.add(toUIEntity(project));
@@ -68,7 +75,7 @@ public class TaskMapper implements Mapper<TaskTO, Task> {
     }
 
     @Override
-    public Task toPersistenceEntity(TaskTO ui) {
+    public Task toPersistenceEntity (TaskTO ui) {
         Task task = null;
         if (ui != null) {
             task = new Task();

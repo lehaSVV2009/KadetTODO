@@ -17,7 +17,7 @@ public class Task {
     private String title;
     private String description;
 
-    private Date openedDate;
+    private Date openedDate = new Date();
     private Date modifiedDate;
     private Date resolvedDate;
     private Date closedDate;

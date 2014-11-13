@@ -32,6 +32,27 @@ Ext.define('kadetTODO.view.table.TaskTable', {
             sortable: true,
             filterable: true,
             dataIndex: 'description'
+        },
+        {
+            text: "TASK_TABLE_LEVEL".translate(),
+            flex: 1,
+            sortable: true,
+            filterable: true,
+            dataIndex: 'level'
+        },
+        {
+            text: "TASK_TABLE_STATUS".translate(),
+            flex: 1,
+            sortable: true,
+            filterable: true,
+            dataIndex: 'status'
+        },
+        {
+            text: "TASK_TABLE_OPENED_DATE".translate(),
+            flex: 1,
+            sortable: true,
+            filterable: true,
+            dataIndex: 'openedDate'
         }
     ]
 
