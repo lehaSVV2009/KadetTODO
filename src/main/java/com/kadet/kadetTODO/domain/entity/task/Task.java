@@ -1,5 +1,7 @@
 package com.kadet.kadetTODO.domain.entity.task;
 
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -10,8 +12,12 @@ import java.util.Date;
  *
  * @author Alex Soroka
  */
+@Entity
+@Table(name = "task")
 public class Task {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String title;
@@ -23,7 +29,10 @@ public class Task {
     private Date closedDate;
     private Date reopenedDate;
 
+    @Enumerated(EnumType.STRING)
     private Level level = Level.TRIVIAL;
+
+    @Enumerated(EnumType.STRING)
     private Status status = Status.OPENED;
 
     public Long getId () {

@@ -52,7 +52,10 @@ Ext.define('kadetTODO.view.table.TaskTable', {
             flex: 1,
             sortable: true,
             filterable: true,
-            dataIndex: 'openedDate'
+            dataIndex: 'openedDate',
+            renderer: function (value, meta) {
+                return Ext.create('kadetTODO.util.DateUtil').getDateInFormatFromLong(value, "DATE_FORMAT".translate());
+            }
         }
     ]
 

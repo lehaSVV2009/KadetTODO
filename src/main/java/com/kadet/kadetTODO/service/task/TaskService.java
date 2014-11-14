@@ -5,6 +5,7 @@ import com.kadet.kadetTODO.domain.repo.TaskRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,9 +32,9 @@ public class TaskService {
      */
 
 
-//    @Transactional
+    @Transactional
     public Task create (Task newTask) {
-        Task saved = taskRepository.create(newTask);
+        Task saved = taskRepository.save(newTask);
         logger.debug("Created Task: " + saved);
         return saved;
     }
@@ -57,16 +58,12 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task findByTitle (String title) {
-        return taskRepository.findByTitle(title);
-    }
-
 
     /**
      * UPDATE
      */
 
-//    @Transactional
+    @Transactional
     public Task update (Task task) {
         Task existing = taskRepository.findOne(task.getId());
         if (existing == null) {
@@ -102,7 +99,7 @@ public class TaskService {
      * DELETE
      */
 
-//    @Transactional
+    @Transactional
     public boolean delete (Task task) {
         Task existing = taskRepository
                 .findOne(task.getId());

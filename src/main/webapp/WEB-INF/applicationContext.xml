@@ -11,7 +11,7 @@
 			http://www.springframework.org/schema/mvc 
 			http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
-    <!--<context:property-placeholder properties-ref="deployProperties"/>-->
+    <context:property-placeholder properties-ref="deployProperties"/>
 
     <!-- Activates various annotations to be detected in bean classes -->
     <context:annotation-config/>
@@ -27,13 +27,13 @@
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
 <!--
-    &lt;!&ndash; Imports logging configuration &ndash;&gt;
     <import resource="trace-context.xml"/>
+-->
 
-    &lt;!&ndash; Imports datasource configuration &ndash;&gt;
+    <!-- Imports datasource configuration -->
     <import resource="spring-data.xml"/>
 
     <bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"
-          p:location="/WEB-INF/spring.properties"/>-->
+          p:location="/WEB-INF/spring.properties"/>
 
 </beans>

@@ -36,8 +36,10 @@ Ext.define('kadetTODO.model.Task', {
         {
             name: 'openedDate',
             type: 'date',
-            dateFormat: 'Y-m-d H:i:s',
-            mapping: 'openedDate'
+            mapping: 'openedDate',
+            convert: function (newValue) {
+                return new Date(newValue);
+            }
         }
     ],
 

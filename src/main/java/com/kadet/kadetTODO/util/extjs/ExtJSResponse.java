@@ -1,7 +1,5 @@
 package com.kadet.kadetTODO.util.extjs;
 
-import com.kadet.kadetTODO.web.to.TO;
-import com.kadet.kadetTODO.web.to.TaskTO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

@@ -6,7 +6,8 @@
 Ext.Loader.setPath('kadetTODO', 'resources/js/app');
 
 Ext.require([
-    'kadetTODO.util.LocaleUtil'
+    'kadetTODO.util.LocaleUtil',
+    'kadetTODO.util.DateUtil'
 ], function () {
 
     /**

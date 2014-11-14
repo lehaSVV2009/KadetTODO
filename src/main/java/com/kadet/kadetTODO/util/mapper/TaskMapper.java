@@ -29,9 +29,6 @@ import java.util.Map;
 @Service
 public class TaskMapper implements Mapper<TaskTO, Task> {
 
-    @Autowired
-    private DateUtil dateUtil;
-
     public Map<String, Object> toMap (final TaskTO taskTO) {
         return new HashMap<String, Object>() {{
             put("id", taskTO.getId());
@@ -39,7 +36,7 @@ public class TaskMapper implements Mapper<TaskTO, Task> {
             put("description", taskTO.getDescription());
             put("level", taskTO.getLevel());
             put("status", taskTO.getStatus());
-            put("openedDate", dateUtil.longFromDate(taskTO.getOpenedDate()));
+            put("openedDate", taskTO.getOpenedDate());
         }};
     }
 

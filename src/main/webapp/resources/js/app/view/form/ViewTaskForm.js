@@ -52,12 +52,13 @@ Ext.define('kadetTODO.view.form.ViewTaskForm', {
                             fieldLabel: "VIEW_TASK_FORM_OPENED_DATE".translate(),
                             name: 'openedDate',
                             readOnly: true,
-                            format: 'm d Y'
+                            editable: false,
+                            submitFormat: 'Y-m-d H:i:s',
+                            format: 'Y-m-d H:i:s'
                         }
                     ]
                 }
             ]
         }
     ]
-
 });
