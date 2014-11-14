@@ -6,9 +6,9 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
  * @author Alex Soroka
  */
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.ANY)
-public class LevelTO {
+public class TextTO {
 
-    public LevelTO (String text) {
+    public TextTO (String text) {
         this.text = text;
     }
 

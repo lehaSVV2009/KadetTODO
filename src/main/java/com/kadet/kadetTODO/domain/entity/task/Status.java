@@ -8,8 +8,6 @@ package com.kadet.kadetTODO.domain.entity.task;
 public enum Status {
 
     OPENED,
-    REOPENED,
-    RESOLVED,
     CLOSED
 
 }

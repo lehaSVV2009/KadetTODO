@@ -16,9 +16,9 @@ repositories {
 }
 
 ext {
-    springVersion = "3.2.1.RELEASE"
+    springVersion = "3.1.4.RELEASE"
     springSecurityVersion = "3.1.0.RELEASE"
-    springDataVersion = "1.1.0.RELEASE"
+    springDataVersion = "1.0.3.RELEASE"
 
     mysqlConnectorVersion = "5.1.21"
 
@@ -44,15 +44,16 @@ ext {
 
 dependencies {
 
-    // JUnit
+    // Spring
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
+    compile "org.springframework:spring-core:$springVersion"
+
+    // Tests
     testCompile "junit:junit:$junitVersion"
     compile "org.mockito:mockito-all:$mockitoVersion"
     compile "org.springframework:spring-test:$springVersion"
 
-    // Spring
-    compile "org.springframework:spring-core:$springVersion"
-    compile "org.springframework:spring-web:$springVersion"
-    compile "org.springframework:spring-webmvc:$springVersion"
 
     // todo: try to aspect log
 //    compile "org.aspectj:aspectjrt:$aspectjVersion"

@@ -11,7 +11,8 @@ Ext.define('kadetTODO.controller.Router', {
     stores: [
         'NavigationTreeStore',
         'TaskStore',
-        'Levels'
+        'Levels',
+        'Statuses'
     ],
     models: ['Task'],
     views: [

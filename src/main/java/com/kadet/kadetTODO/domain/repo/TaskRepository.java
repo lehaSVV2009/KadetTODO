@@ -11,4 +11,6 @@ import javax.annotation.Resource;
 @Resource
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
+
+
 }

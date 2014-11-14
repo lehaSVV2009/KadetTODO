@@ -7,8 +7,8 @@ import java.util.Date;
 /**
  * Date: 11.11.2014
  * Time: 10:37
- *
- *  Main entity in application
+ * <p/>
+ * Main entity in application
  *
  * @author Alex Soroka
  */
@@ -24,10 +24,7 @@ public class Task {
     private String description;
 
     private Date openedDate = new Date();
-    private Date modifiedDate;
-    private Date resolvedDate;
     private Date closedDate;
-    private Date reopenedDate;
 
     @Enumerated(EnumType.STRING)
     private Level level = Level.TRIVIAL;
@@ -43,11 +40,11 @@ public class Task {
         this.id = id;
     }
 
-    public String getTitle() {
+    public String getTitle () {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle (String title) {
         this.title = title;
     }
 
@@ -67,36 +64,12 @@ public class Task {
         this.openedDate = openedDate;
     }
 
-    public Date getModifiedDate () {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate (Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public Date getResolvedDate () {
-        return resolvedDate;
-    }
-
-    public void setResolvedDate (Date resolvedDate) {
-        this.resolvedDate = resolvedDate;
-    }
-
     public Date getClosedDate () {
         return closedDate;
     }
 
     public void setClosedDate (Date closedDate) {
         this.closedDate = closedDate;
-    }
-
-    public Date getReopenedDate () {
-        return reopenedDate;
-    }
-
-    public void setReopenedDate (Date reopenedDate) {
-        this.reopenedDate = reopenedDate;
     }
 
     public Level getLevel () {

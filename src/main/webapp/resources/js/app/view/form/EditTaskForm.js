@@ -46,6 +46,16 @@ Ext.define('kadetTODO.view.form.EditTaskForm', {
                             displayField: 'text',
                             valueField: 'text',
                             store: 'Levels'
+                        },
+                        {
+                            xtype: 'combobox',
+                            fieldLabel: 'EDIT_TASK_FORM_STATUS'.translate(),
+                            name: 'status',
+                            anchor: '95%',
+                            allowBlank: false,
+                            displayField: 'text',
+                            valueField: 'text',
+                            store: 'Statuses'
                         }
                     ]
                 }

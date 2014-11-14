@@ -1,5 +1,6 @@
 package com.kadet.kadetTODO.service.task;
 
+import com.kadet.kadetTODO.domain.entity.task.Status;
 import com.kadet.kadetTODO.domain.entity.task.Task;
 import com.kadet.kadetTODO.domain.repo.TaskRepository;
 import org.apache.log4j.Logger;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +36,7 @@ public class TaskService {
 
     @Transactional
     public Task create (Task newTask) {
+        newTask.setOpenedDate(new Date());
         Task saved = taskRepository.save(newTask);
         logger.debug("Created Task: " + saved);
         return saved;
@@ -80,7 +83,11 @@ public class TaskService {
             existing.setLevel(task.getLevel());
         }
         if (task.getStatus() != null) {
-            existing.setStatus(task.getStatus());
+            Status status = task.getStatus();
+            existing.setStatus(status);
+            if (Status.CLOSED.equals(status)) {
+                existing.setClosedDate(new Date());
+            }
         }
 
         Task saved = null;

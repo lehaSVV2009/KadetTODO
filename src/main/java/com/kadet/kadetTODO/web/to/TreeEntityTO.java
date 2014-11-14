@@ -1,6 +1,5 @@
 package com.kadet.kadetTODO.web.to;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonSubTypes;
 
 import java.util.ArrayList;

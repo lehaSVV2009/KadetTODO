@@ -16,6 +16,10 @@ public class TaskSupportService {
 
     private Logger logger = Logger.getLogger(TaskService.class);
 
+
+    /**
+     *  Get all String values of Task Level
+     */
     public List<String> getAllLevels () {
         List<String> levels = new ArrayList<String>();
         for (Level level: Level.values()) {
@@ -24,6 +28,10 @@ public class TaskSupportService {
         return levels;
     }
 
+
+    /**
+     *  Get all String values of Task Status
+     */
     public List<String> getAllStatuses () {
         List<String> statuses = new ArrayList<String>();
         for (Status status: Status.values()) {

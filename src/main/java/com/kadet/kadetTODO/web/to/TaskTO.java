@@ -7,23 +7,20 @@ import java.util.Date;
 /**
  * Date: 11.11.2014
  * Time: 10:37
- *
- *  Task for viewing in ExtJS
+ * <p/>
+ * Task for viewing in ExtJS
  *
  * @author Alex Soroka
  */
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.ANY)
-public class TaskTO implements TO{
+public class TaskTO implements TO {
 
     private Long id;
 
     private String title;
     private String description;
     private Date openedDate;
-    private Date modifiedDate;
-    private Date resolvedDate;
     private Date closedDate;
-    private Date reopenedDate;
 
     private String level;
     private String status;
@@ -60,36 +57,12 @@ public class TaskTO implements TO{
         this.openedDate = openedDate;
     }
 
-    public Date getModifiedDate () {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate (Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public Date getResolvedDate () {
-        return resolvedDate;
-    }
-
-    public void setResolvedDate (Date resolvedDate) {
-        this.resolvedDate = resolvedDate;
-    }
-
     public Date getClosedDate () {
         return closedDate;
     }
 
     public void setClosedDate (Date closedDate) {
         this.closedDate = closedDate;
-    }
-
-    public Date getReopenedDate () {
-        return reopenedDate;
-    }
-
-    public void setReopenedDate (Date reopenedDate) {
-        this.reopenedDate = reopenedDate;
     }
 
     public String getLevel () {

@@ -1,8 +1,7 @@
 package com.kadet.kadetTODO.web.controller.task;
 
-import com.kadet.kadetTODO.service.task.TaskService;
 import com.kadet.kadetTODO.service.task.TaskSupportService;
-import com.kadet.kadetTODO.web.to.LevelTO;
+import com.kadet.kadetTODO.web.to.TextTO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,21 +28,44 @@ public class TaskSupportController {
     @Autowired
     private TaskSupportService taskSupportService;
 
-
+    /**
+     *  Get all levels in JSON format like [{text: 'Level1'}, {text: 'Level2'}]
+     */
     @RequestMapping(value = "/levels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<LevelTO> getLevels () throws Exception {
+    public List<TextTO> getLevels () throws Exception {
         try {
-            final List<String> levels = taskSupportService.getAllLevels();
-            return new ArrayList<LevelTO>() {{
-                for (String level : levels) {
-                    add(new LevelTO(level));
-                }
-            }};
+            return getTextTOs(
+                    taskSupportService.getAllLevels());
         } catch (Exception e) {
             logger.error(e);
-            return new ArrayList<LevelTO>();
+            return new ArrayList<TextTO>();
         }
+    }
+
+
+    /**
+     *  Get all statuses in JSON format like [{text: 'Status1'}, {text: 'Status2'}]
+     */
+    @RequestMapping(value = "/statuses", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<TextTO> getStatuses () throws Exception {
+        try {
+            return getTextTOs(
+                    taskSupportService.getAllStatuses());
+        } catch (Exception e) {
+            logger.error(e);
+            return new ArrayList<TextTO>();
+        }
+    }
+
+
+    private List<TextTO> getTextTOs (final List<String> texts) {
+        return new ArrayList<TextTO>() {{
+            for (String text : texts) {
+                add(new TextTO(text));
+            }
+        }};
     }
 
 

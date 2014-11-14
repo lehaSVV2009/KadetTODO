@@ -37,6 +37,7 @@ public class TaskMapper implements Mapper<TaskTO, Task> {
             put("level", taskTO.getLevel());
             put("status", taskTO.getStatus());
             put("openedDate", taskTO.getOpenedDate());
+            put("closedDate", taskTO.getClosedDate());
         }};
     }
 
@@ -52,10 +53,7 @@ public class TaskMapper implements Mapper<TaskTO, Task> {
             taskTO.setDescription(task.getDescription());
 
             taskTO.setOpenedDate(task.getOpenedDate());
-            taskTO.setModifiedDate(task.getModifiedDate());
-            taskTO.setResolvedDate(task.getResolvedDate());
             taskTO.setClosedDate(task.getClosedDate());
-            taskTO.setReopenedDate(task.getReopenedDate());
 
             taskTO.setLevel(task.getLevel().name());
             taskTO.setStatus(task.getStatus().name());
@@ -82,10 +80,7 @@ public class TaskMapper implements Mapper<TaskTO, Task> {
             task.setDescription(ui.getDescription());
 
             task.setOpenedDate(ui.getOpenedDate());
-            task.setModifiedDate(ui.getModifiedDate());
-            task.setResolvedDate(ui.getResolvedDate());
             task.setClosedDate(ui.getClosedDate());
-            task.setReopenedDate(ui.getReopenedDate());
 
             if (ui.getLevel() != null) {
                 task.setLevel(Level.valueOf(ui.getLevel()));

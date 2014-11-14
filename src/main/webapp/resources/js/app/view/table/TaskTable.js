@@ -53,7 +53,17 @@ Ext.define('kadetTODO.view.table.TaskTable', {
             sortable: true,
             filterable: true,
             dataIndex: 'openedDate',
-            renderer: function (value, meta) {
+            renderer: function (value) {
+                return Ext.create('kadetTODO.util.DateUtil').getDateInFormatFromLong(value, "DATE_FORMAT".translate());
+            }
+        },
+        {
+            text: "TASK_TABLE_CLOSED_DATE".translate(),
+            flex: 1,
+            sortable: true,
+            filterable: true,
+            dataIndex: 'closedDate',
+            renderer: function (value) {
                 return Ext.create('kadetTODO.util.DateUtil').getDateInFormatFromLong(value, "DATE_FORMAT".translate());
             }
         }

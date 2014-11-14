@@ -77,7 +77,6 @@ public class TaskController {
         try {
             Task task = taskService.findById(taskId);
             TaskTO taskTO = taskMapper.toUIEntity(task);
-
             return extJS.restOk(taskMapper.toMap(taskTO));
         } catch (Exception e) {
             logger.error(e);
