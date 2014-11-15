@@ -17,7 +17,6 @@ repositories {
 
 ext {
     springVersion = "3.1.4.RELEASE"
-    springSecurityVersion = "3.1.0.RELEASE"
     springDataVersion = "1.0.3.RELEASE"
 
     mysqlConnectorVersion = "5.1.21"
@@ -68,12 +67,9 @@ dependencies {
 
     compile "log4j:log4j:$log4jVersion"
 
-/*
-    compile "org.springframework.security:spring-security-core:$springSecurityVersion"
-    compile "org.springframework.security:spring-security-web:$springSecurityVersion"
-    compile "org.springframework.security:spring-security-config:$springSecurityVersion"
-    compile "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
-*/
+    compile "org.springframework.security:spring-security-core:$springVersion"
+    compile "org.springframework.security:spring-security-web:$springVersion"
+    compile "org.springframework.security:spring-security-config:$springVersion"
 
     compile "org.springframework.data:spring-data-jpa:$springDataVersion"
     compile "org.springframework:spring-orm:$springVersion"

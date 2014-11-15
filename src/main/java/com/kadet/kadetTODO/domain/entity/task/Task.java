@@ -27,10 +27,10 @@ public class Task {
     private Date closedDate;
     private Date reopenedDate;
 
-    @Enumerated(EnumType.STRING)
-    private Level level = Level.TRIVIAL;
+    @Enumerated(EnumType.ORDINAL)
+    private Level level = Level.MINOR;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Status status = Status.OPENED;
 
     public Long getId () {
