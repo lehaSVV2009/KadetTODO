@@ -8,6 +8,7 @@ Ext.define('kadetTODO.view.ViewPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.todoViewPanel',
     title: "VIEW_PANEL_TITLE".translate(),
+
     items: [
         {
             xtype: 'gridpanel',
@@ -27,6 +28,7 @@ Ext.define('kadetTODO.view.ViewPanel', {
     updateInnerPanel: function (innerNewPanel) {
         var newPanel = Ext.create('Ext.panel.Panel', {
             xtype: 'gridPanel',
+            layout: 'fit',
             items: [
                 innerNewPanel
             ]

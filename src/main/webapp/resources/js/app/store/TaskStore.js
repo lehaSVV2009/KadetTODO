@@ -10,8 +10,8 @@ Ext.define("kadetTODO.store.TaskStore", {
 
     buffered: true,
 
-    pageSize: 50,
-    leadingBufferZone: 1000,
+    pageSize: 10,
+    leadingBufferZone: 100,
     remoteSort: true,
 
     autoLoad: true,

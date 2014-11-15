@@ -46,7 +46,7 @@ Ext.define('kadetTODO.view.table.TaskTable', {
             sortable: true,
             filterable: true,
             dataIndex: 'status'
-        }/*,
+        },
         {
             text: "TASK_TABLE_OPENED_DATE".translate(),
             flex: 1,
@@ -56,17 +56,7 @@ Ext.define('kadetTODO.view.table.TaskTable', {
             renderer: function (value) {
                 return Ext.create('kadetTODO.util.DateUtil').getDateInFormatFromLong(value, "DATE_FORMAT".translate());
             }
-        },
-        {
-            text: "TASK_TABLE_CLOSED_DATE".translate(),
-            flex: 1,
-            sortable: true,
-            filterable: true,
-            dataIndex: 'closedDate',
-            renderer: function (value) {
-                return Ext.create('kadetTODO.util.DateUtil').getDateInFormatFromLong(value, "DATE_FORMAT".translate());
-            }
-        }*/
+        }
     ]
 
 });

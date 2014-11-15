@@ -10,6 +10,9 @@ import com.kadet.kadetTODO.domain.entity.task.Task;
 import com.kadet.kadetTODO.util.DateUtil;
 import com.kadet.kadetTODO.web.to.TaskTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,12 +66,21 @@ public class TaskMapper implements Mapper<TaskTO, Task> {
         return taskTO;
     }
 
-    public List<TaskTO> toUIEntity (List<Task> projects) {
+    public List<TaskTO> toUIEntity (List<Task> tasks) {
         List<TaskTO> projectUIs = new ArrayList<TaskTO>();
-        for (Task project : projects) {
+        for (Task project : tasks) {
             projectUIs.add(toUIEntity(project));
         }
         return projectUIs;
+    }
+
+    public Page<TaskTO> toUIEntity (Page<Task> tasks, Pageable pageable) {
+        Page<TaskTO> page = new PageImpl<TaskTO>(
+                toUIEntity(tasks.getContent()),
+                pageable,
+                tasks.getTotalElements()
+        );
+        return page;
     }
 
     @Override

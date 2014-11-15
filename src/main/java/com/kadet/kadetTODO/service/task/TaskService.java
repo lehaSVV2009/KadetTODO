@@ -5,6 +5,8 @@ import com.kadet.kadetTODO.domain.entity.task.Task;
 import com.kadet.kadetTODO.domain.repo.TaskRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,6 +62,11 @@ public class TaskService {
     public List<Task> findAll () {
         return taskRepository.findAll();
     }
+
+    public Page<Task> findAll (Pageable pageable) {
+        return taskRepository.findAll(pageable);
+    }
+
 
 
     /**

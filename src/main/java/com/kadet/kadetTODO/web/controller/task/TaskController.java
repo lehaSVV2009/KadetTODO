@@ -4,10 +4,17 @@ import com.kadet.kadetTODO.domain.entity.task.Task;
 import com.kadet.kadetTODO.service.task.TaskService;
 import com.kadet.kadetTODO.util.Strings;
 import com.kadet.kadetTODO.util.extjs.ExtJSResponse;
+import com.kadet.kadetTODO.util.extjs.JsonUtils;
+import com.kadet.kadetTODO.util.extjs.PageableUtils;
+import com.kadet.kadetTODO.util.extjs.SortFilter;
 import com.kadet.kadetTODO.util.mapper.TaskMapper;
 import com.kadet.kadetTODO.web.to.TaskTO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -88,13 +95,34 @@ public class TaskController {
     /**
      * Read all
      */
-    @RequestMapping(value = "/tasks", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Map<String, ? extends Object> readAll () {
+    public Map<String, ? extends Object> readAll (@RequestParam boolean all) {
         try {
             List<Task> tasks = taskService.findAll();
             List<TaskTO> taskTOs = taskMapper.toUIEntity(tasks);
-            return extJS.mapOK(taskTOs, Strings.TASK_UPDATE_SUCCESS);
+            return extJS.mapOK(taskTOs);
+        } catch (Exception e) {
+            logger.error(e);
+            return extJS.mapError(Strings.TASKS_RETRIEVE_ERROR);
+        }
+    }
+
+
+    /**
+     * Read one page
+     */
+    @RequestMapping(value = "/tasks", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, ? extends Object> readAll (@RequestParam int page, @RequestParam int start, @RequestParam int limit, @RequestParam(required = false)Object sort) {
+        try {
+            Pageable pageable
+                    = PageableUtils.createPageableByExtJSTableRequest(page, start, limit, sort);
+            Page<Task> tasksPage = taskService.findAll(pageable);
+            Page<TaskTO> taskTOPage
+                    = taskMapper.toUIEntity(tasksPage, pageable);
+            return extJS.mapOK(
+                    taskTOPage.getContent(),
+                    taskTOPage.getTotalElements()
+            );
         } catch (Exception e) {
             logger.error(e);
             return extJS.mapError(Strings.TASKS_RETRIEVE_ERROR);

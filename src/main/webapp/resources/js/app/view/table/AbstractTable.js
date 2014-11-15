@@ -10,9 +10,9 @@ Ext.define('kadetTODO.view.table.AbstractTable', {
     selModel: Ext.create('Ext.selection.CheckboxModel'),
     iconCls: 'icon-user',
 
-
-    dockedItems: [
-        {
+    initComponent: function () {
+        var me = this;
+        this.dockedItems = {
             items: [
                 '-',
                 {
@@ -37,11 +37,8 @@ Ext.define('kadetTODO.view.table.AbstractTable', {
             ],
             xtype: 'pagingtoolbar',
             dock: 'bottom',
-            displayInfo: true
-        }
-    ],
-
-    initComponent: function () {
+            store: me.store
+        };
         this.callParent(arguments);
         this.getSelectionModel().on('selectionchange', this.onSelectChange, this);
         this.onSelectChange(this.getSelectionModel(), []);
