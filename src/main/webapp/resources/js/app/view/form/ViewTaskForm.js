@@ -57,6 +57,14 @@ Ext.define('kadetTODO.view.form.ViewTaskForm', {
                         },
                         {
                             xtype: 'datefield',
+                            fieldLabel: "VIEW_TASK_FORM_REOPENED_DATE".translate(),
+                            name: 'reopenedDate',
+                            readOnly: true,
+                            submitFormat: 'Y-m-d H:i:s',
+                            format: 'Y-m-d H:i:s'
+                        },
+                        {
+                            xtype: 'datefield',
                             fieldLabel: "VIEW_TASK_FORM_CLOSED_DATE".translate(),
                             name: 'closedDate',
                             readOnly: true,

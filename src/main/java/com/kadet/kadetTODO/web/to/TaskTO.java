@@ -13,7 +13,7 @@ import java.util.Date;
  * @author Alex Soroka
  */
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.ANY, fieldVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.ANY)
-public class TaskTO implements TO {
+public class TaskTO {
 
     private Long id;
 
@@ -21,6 +21,7 @@ public class TaskTO implements TO {
     private String description;
     private Date openedDate;
     private Date closedDate;
+    private Date reopenedDate;
 
     private String level;
     private String status;
@@ -79,5 +80,13 @@ public class TaskTO implements TO {
 
     public void setStatus (String status) {
         this.status = status;
+    }
+
+    public Date getReopenedDate () {
+        return reopenedDate;
+    }
+
+    public void setReopenedDate (Date reopenedDate) {
+        this.reopenedDate = reopenedDate;
     }
 }

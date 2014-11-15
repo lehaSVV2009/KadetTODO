@@ -83,11 +83,22 @@ public class TaskService {
             existing.setLevel(task.getLevel());
         }
         if (task.getStatus() != null) {
-            Status status = task.getStatus();
-            existing.setStatus(status);
-            if (Status.CLOSED.equals(status)) {
-                existing.setClosedDate(new Date());
+            Status newStatus = task.getStatus();
+            switch (newStatus) {
+                case OPENED: {
+                    Status oldStatus = existing.getStatus();
+                    if (oldStatus != null && Status.CLOSED.equals(oldStatus)) {
+                        existing.setReopenedDate(new Date());
+                        existing.setClosedDate(null);
+                    }
+                    break;
+                }
+                case CLOSED: {
+                    existing.setClosedDate(new Date());
+                    break;
+                }
             }
+            existing.setStatus(newStatus);
         }
 
         Task saved = null;

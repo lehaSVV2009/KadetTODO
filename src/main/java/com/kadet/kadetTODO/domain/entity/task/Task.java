@@ -25,6 +25,7 @@ public class Task {
 
     private Date openedDate = new Date();
     private Date closedDate;
+    private Date reopenedDate;
 
     @Enumerated(EnumType.STRING)
     private Level level = Level.TRIVIAL;
@@ -86,5 +87,13 @@ public class Task {
 
     public void setStatus (Status status) {
         this.status = status;
+    }
+
+    public Date getReopenedDate () {
+        return reopenedDate;
+    }
+
+    public void setReopenedDate (Date reopenedDate) {
+        this.reopenedDate = reopenedDate;
     }
 }
