@@ -4,17 +4,13 @@ import com.kadet.kadetTODO.domain.entity.task.Task;
 import com.kadet.kadetTODO.service.task.TaskService;
 import com.kadet.kadetTODO.util.Strings;
 import com.kadet.kadetTODO.util.extjs.ExtJSResponse;
-import com.kadet.kadetTODO.util.extjs.JsonUtils;
 import com.kadet.kadetTODO.util.extjs.PageableUtils;
-import com.kadet.kadetTODO.util.extjs.SortFilter;
 import com.kadet.kadetTODO.util.mapper.TaskMapper;
 import com.kadet.kadetTODO.web.to.TaskTO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -95,7 +91,7 @@ public class TaskController {
     /**
      * Read all
      */
-    public Map<String, ? extends Object> readAll (@RequestParam boolean all) {
+    public Map<String, ? extends Object> readAll () {
         try {
             List<Task> tasks = taskService.findAll();
             List<TaskTO> taskTOs = taskMapper.toUIEntity(tasks);
@@ -205,4 +201,27 @@ public class TaskController {
     }
 
 
+    public TaskService getTaskService () {
+        return taskService;
+    }
+
+    public void setTaskService (TaskService taskService) {
+        this.taskService = taskService;
+    }
+
+    public ExtJSResponse<TaskTO> getExtJS () {
+        return extJS;
+    }
+
+    public void setExtJS (ExtJSResponse<TaskTO> extJS) {
+        this.extJS = extJS;
+    }
+
+    public TaskMapper getTaskMapper () {
+        return taskMapper;
+    }
+
+    public void setTaskMapper (TaskMapper taskMapper) {
+        this.taskMapper = taskMapper;
+    }
 }

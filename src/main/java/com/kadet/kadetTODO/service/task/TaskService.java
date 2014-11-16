@@ -1,16 +1,9 @@
 package com.kadet.kadetTODO.service.task;
 
-import com.kadet.kadetTODO.domain.entity.task.Status;
 import com.kadet.kadetTODO.domain.entity.task.Task;
-import com.kadet.kadetTODO.domain.repo.TaskRepository;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,117 +15,38 @@ import java.util.List;
  *
  * @author Alex Soroka
  */
-@Service
-public class TaskService {
-
-    private Logger logger = Logger.getLogger(TaskService.class);
-
-    @Autowired
-    private TaskRepository taskRepository;
-
+public interface TaskService {
 
     /**
      * CREATE
      */
-
-
-    @Transactional
-    public Task create (Task newTask) {
-        newTask.setOpenedDate(new Date());
-        Task saved = taskRepository.save(newTask);
-        logger.debug("Created Task: " + saved);
-        return saved;
-    }
+    public Task create (Task newTask);
 
 
     /**
      * READ
      */
 
+    public Task findById (Long taskId);
 
-    public Task findById (Long taskId) {
-        Task task = taskRepository.findOne(taskId);
-        return task;
-    }
+    public Task find (Task task);
 
-    public Task find (Task task) {
-        return findById(task.getId());
-    }
+    public List<Task> findAll ();
 
-    public List<Task> findAll () {
-        return taskRepository.findAll();
-    }
-
-    public Page<Task> findAll (Pageable pageable) {
-        return taskRepository.findAll(pageable);
-    }
-
+    public Page<Task> findAll (Pageable pageable);
 
 
     /**
      * UPDATE
      */
 
-    @Transactional
-    public Task update (Task task) {
-        Task existing = taskRepository.findOne(task.getId());
-        if (existing == null) {
-            return null;
-        }
-        if (task.getTitle() != null) {
-            existing.setTitle(task.getTitle());
-        }
-        if (task.getDescription() != null) {
-            existing.setDescription(task.getDescription());
-        }
-
-        if (task.getLevel() != null) {
-            existing.setLevel(task.getLevel());
-        }
-        if (task.getStatus() != null) {
-            Status newStatus = task.getStatus();
-            switch (newStatus) {
-                case OPENED: {
-                    Status oldStatus = existing.getStatus();
-                    if (oldStatus != null && Status.CLOSED.equals(oldStatus)) {
-                        existing.setReopenedDate(new Date());
-                        existing.setClosedDate(null);
-                    }
-                    break;
-                }
-                case CLOSED: {
-                    existing.setClosedDate(new Date());
-                    break;
-                }
-            }
-            existing.setStatus(newStatus);
-        }
-
-        Task saved = null;
-
-        try {
-            saved = taskRepository.save(existing);
-        } catch (Exception e) {
-            logger.error(e);
-        }
-
-        return saved;
-    }
+    public Task update (Task task);
 
 
     /**
      * DELETE
      */
 
-    @Transactional
-    public boolean delete (Task task) {
-        Task existing = taskRepository
-                .findOne(task.getId());
-        if (existing == null) {
-            return false;
-        }
-        taskRepository.delete(existing);
-        return true;
-    }
+    public boolean delete (Task task);
 
 }
