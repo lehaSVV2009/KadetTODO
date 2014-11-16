@@ -4,7 +4,7 @@ import com.kadet.kadetTODO.domain.entity.task.Task;
 import com.kadet.kadetTODO.service.task.TaskService;
 import com.kadet.kadetTODO.util.Strings;
 import com.kadet.kadetTODO.util.extjs.ExtJSResponse;
-import com.kadet.kadetTODO.util.extjs.PageableUtils;
+import com.kadet.kadetTODO.util.extjs.PageableUtil;
 import com.kadet.kadetTODO.util.mapper.TaskMapper;
 import com.kadet.kadetTODO.web.to.TaskTO;
 import org.apache.log4j.Logger;
@@ -111,7 +111,7 @@ public class TaskController {
     public Map<String, ? extends Object> readAll (@RequestParam int page, @RequestParam int start, @RequestParam int limit, @RequestParam(required = false)Object sort) {
         try {
             Pageable pageable
-                    = PageableUtils.createPageableByExtJSTableRequest(page, start, limit, sort);
+                    = PageableUtil.createPageableByExtJSTableRequest(page, start, limit, sort);
             Page<Task> tasksPage = taskService.findAll(pageable);
             Page<TaskTO> taskTOPage
                     = taskMapper.toUIEntity(tasksPage, pageable);

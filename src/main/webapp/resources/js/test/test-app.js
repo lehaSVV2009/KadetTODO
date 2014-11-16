@@ -3,10 +3,13 @@
  *
  * Created by Alex Soroka on 10/30/2014.
  */
+var Application = null;
+
 Ext.Loader.setPath('kadetTODO', 'resources/js/app');
 
 Ext.require([
-    'kadetTODO.util.LocaleUtil'
+    'kadetTODO.util.LocaleUtil',
+    'kadetTODO.util.DateUtil'
 ], function () {
 
     /**
@@ -14,7 +17,7 @@ Ext.require([
      */
     Ext.create('kadetTODO.util.LocaleUtil').setLanguage(function () {
 
-        Ext.application({
+        Application = Ext.create('Ext.app.Application', {
 
             name: 'kadetTODO',
             appFolder: 'resources/js/app',

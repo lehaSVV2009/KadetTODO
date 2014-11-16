@@ -11,10 +11,8 @@ import java.util.List;
 /**
  * @author Alex Soroka
  */
-public class PageableUtils {
+public class PageableUtil {
 
-    private final static String ASC = "ASC";
-    private final static String DESC = "DESC";
 
     /**
      *  Create object of @Pageable class by parameters of ExtJS grid table
@@ -29,11 +27,11 @@ public class PageableUtils {
         Pageable pageable = null;
         if (sort != null) {
             List<SortFilter> sortFilters
-                    = JsonUtils.getSortFiltersFromJsonArray((String)sort);
+                    = JsonUtil.getSortFiltersFromJsonArray((String) sort);
             if (sortFilters.size() != 0) {
                 pageable = new PageRequest(page - 1,limit,
                         new Sort(
-                                PageableUtils.sortFiltersToOrders(sortFilters)
+                                PageableUtil.sortFiltersToOrders(sortFilters)
                         )
                 );
             } else {

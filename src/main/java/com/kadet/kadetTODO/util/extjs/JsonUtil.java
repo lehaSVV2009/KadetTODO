@@ -10,9 +10,9 @@ import java.util.List;
 /**
  * @author Alex Soroka
  */
-public class JsonUtils {
+public class JsonUtil {
 
-    private final static Logger logger = Logger.getLogger(JsonUtils.class);
+    private final static Logger logger = Logger.getLogger(JsonUtil.class);
 
     public static List<SortFilter> getSortFiltersFromJsonArray (String data) {
 
