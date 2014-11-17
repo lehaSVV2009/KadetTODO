@@ -10,10 +10,19 @@ Ext.define('kadetTODO.util.DateUtil', {
 
     signleton: true,
 
+    /**
+     * @return String
+     */
     getDateInFormatFromLong: function (long, format) {
-        return (long)
-            ? Ext.util.Format.date(new Date(long), format)
-            : null;
+        try {
+            return (long)
+                ? ((format)
+                    ? Ext.util.Format.date(new Date(long), format)
+                    : Ext.util.Format.date(new Date(long), "DATE_FORMAT".translate()))
+                : null;
+        } catch (e) {
+            return null;
+        }
     }
 
 });

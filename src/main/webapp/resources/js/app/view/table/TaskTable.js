@@ -58,6 +58,5 @@ Ext.define('kadetTODO.view.table.TaskTable', {
             }
         }
     ]
-    // todo: add new sorter type
 
 });

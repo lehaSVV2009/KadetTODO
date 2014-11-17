@@ -105,7 +105,6 @@ Ext.define('kadetTODO.controller.TasksController', {
      */
 
     updateTask: function () {
-        debugger;
         var me = this,
             editTaskForm = this.getEditTaskForm(),
             form = editTaskForm.getForm();
